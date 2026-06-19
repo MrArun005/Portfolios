@@ -9,6 +9,8 @@ import {
   Vector3,
   RepeatWrapping,
   IcosahedronGeometry,
+  CanvasTexture,
+  AdditiveBlending,
   type BufferGeometry,
   type Group,
   type Mesh,
@@ -246,6 +248,52 @@ function Rig({
   return null;
 }
 
+/** Soft radial glow texture, generated at runtime (no asset). */
+function makeGlow(hex: string): CanvasTexture {
+  const c = document.createElement("canvas");
+  c.width = c.height = 256;
+  const ctx = c.getContext("2d")!;
+  const g = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
+  g.addColorStop(0, hex + "cc");
+  g.addColorStop(0.35, hex + "55");
+  g.addColorStop(1, hex + "00");
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, 256, 256);
+  return new CanvasTexture(c);
+}
+
+/** Faint amber/teal nebula clouds far behind the scene — the "space" colour. */
+function Nebula() {
+  const clouds = useMemo(() => {
+    const amber = makeGlow("#f4b860");
+    const teal = makeGlow("#5ec8c2");
+    return [
+      { tex: amber, pos: [-24, 9, -52] as [number, number, number], scale: 42, op: 0.16 },
+      { tex: teal, pos: [28, -7, -56] as [number, number, number], scale: 50, op: 0.14 },
+      { tex: amber, pos: [8, 18, -62] as [number, number, number], scale: 32, op: 0.1 },
+      { tex: teal, pos: [-16, -16, -50] as [number, number, number], scale: 38, op: 0.1 },
+    ];
+  }, []);
+  return (
+    <group>
+      {clouds.map((c, i) => (
+        <mesh key={i} position={c.pos} scale={c.scale}>
+          <planeGeometry args={[1, 1]} />
+          <meshBasicMaterial
+            map={c.tex}
+            transparent
+            opacity={c.op}
+            blending={AdditiveBlending}
+            depthWrite={false}
+            fog={false}
+            toneMapped={false}
+          />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
 export default function Scene3D() {
   const scroll = useRef(0);
   const mouse = useRef({ x: 0, y: 0 });
@@ -276,12 +324,16 @@ export default function Scene3D() {
       camera={{ position: [0, 0, 8], fov: 50 }}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
     >
-      <fog attach="fog" args={["#0d1117", 7, 28]} />
+      <color attach="background" args={["#05070c"]} />
+      <fog attach="fog" args={["#05070c", 8, 30]} />
       <ambientLight intensity={0.4} />
       <pointLight position={[5, 3, 5]} intensity={90} color={AMBER} />
       <pointLight position={[-6, -3, 2]} intensity={65} color={TEAL} />
 
-      <Stars radius={70} depth={45} count={2200} factor={3} saturation={0} fade speed={0.5} />
+      {/* layered starfield: dense near + sparse big-distant */}
+      <Stars radius={80} depth={50} count={4500} factor={3} saturation={0} fade speed={0.4} />
+      <Stars radius={130} depth={70} count={1400} factor={6} saturation={0} fade speed={0.25} />
+      <Nebula />
 
       <Suspense fallback={null}>
         <Terrain />
