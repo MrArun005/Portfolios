@@ -87,6 +87,11 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  /* Force the whole page into one isolation group so text with
+     mix-blend-mode can blend with the fixed -z-10 WebGL canvas. Without this,
+     the fixed canvas is a separate compositing layer the blend never reaches
+     (only the hero's in-flow aurora was being blended against). */
+  isolation: isolate;
 }
 
 ::selection {
