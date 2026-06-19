@@ -19,6 +19,8 @@ export function SmoothScroll() {
       duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
+    // Expose so overlays/modals can pause page scroll while open.
+    (window as Window & { __lenis?: Lenis }).__lenis = lenis;
 
     let raf = 0;
     const loop = (time: number) => {
@@ -43,6 +45,7 @@ export function SmoothScroll() {
     return () => {
       cancelAnimationFrame(raf);
       document.removeEventListener("click", onClick);
+      delete (window as Window & { __lenis?: Lenis }).__lenis;
       lenis.destroy();
     };
   }, [reduce]);

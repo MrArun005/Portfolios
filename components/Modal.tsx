@@ -22,6 +22,8 @@ export function Modal({
 
   useEffect(() => {
     if (!open) return;
+    const lenis = (window as Window & { __lenis?: { stop: () => void; start: () => void } }).__lenis;
+    lenis?.stop(); // pause smooth-scroll so the modal scrolls instead of the page
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow;
@@ -29,6 +31,7 @@ export function Modal({
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = prev;
+      lenis?.start();
     };
   }, [open, onClose]);
 
@@ -54,6 +57,7 @@ export function Modal({
             ×
           </button>
           <motion.div
+            data-lenis-prevent
             className="relative max-h-[92vh] w-full max-w-[1120px] overflow-y-auto overscroll-contain rounded-2xl border border-line shadow-[0_40px_120px_-20px_rgba(0,0,0,0.85)]"
             initial={reduce ? { opacity: 0 } : { opacity: 0, y: 26, scale: 0.985 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
