@@ -65,7 +65,7 @@ export function RealAsteroid({ shake, flash }: RealAsteroidProps) {
   const s = useRef({
     phase: "wait" as "wait" | "hurtle",
     t: 0,
-    delay: 3,
+    delay: 8,
     startX: 0,
     startY: 0,
     startZ: -60,
@@ -191,7 +191,7 @@ export function RealAsteroid({ shake, flash }: RealAsteroidProps) {
         // BOOM! COLLISION!
         st.phase = "wait";
         st.t = 0;
-        st.delay = 6 + Math.random() * 8; // delay before next strike
+        st.delay = 290 + Math.random() * 20; // ~5 minutes between strikes
         shake.current = 1.75; // massive shake
         flash.current = 1.0;  // trigger full-screen point light flash
         
