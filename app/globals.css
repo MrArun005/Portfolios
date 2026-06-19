@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+/* ===========================================================================
+   Arun Mallikarjuna — design tokens.
+   Identity: an engineer's terminal/filesystem. Deep blue-charcoal base, warm
+   amber + cool teal dual accent, mono utility face as the structural voice.
+   =========================================================================== */
+@theme {
+  --color-bg: #0d1117;
+  --color-bg-2: #141a22;
+  --color-bg-3: #1b232e;
+  --color-line: #283341;
+  --color-line-soft: #1e2630;
+  --color-ink: #e8eef5;
+  --color-muted: #8a97a8;
+  --color-faint: #5b6675;
+  --color-amber: #f4b860;
+  --color-amber-soft: #f4b86022;
+  --color-teal: #5ec8c2;
+  --color-teal-soft: #5ec8c21f;
+
+  --font-display: var(--font-space-grotesk), "Segoe UI", system-ui, sans-serif;
+  --font-body: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "SF Mono", Menlo, monospace;
+
+  --radius-card: 14px;
+
+  --animate-blink: blink 1.1s steps(1) infinite;
+  --animate-marquee: marquee 38s linear infinite;
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+:root {
+  /* Fluid content rail: a slim ~3.5vw gutter on each side at any screen size,
+     capped so it never sprawls on ultra-wide displays. Long-form text blocks
+     set their own max-w (ch) so readability is protected while grids go wide. */
+  --maxw: min(1900px, 93vw);
+  --pad: clamp(20px, 4vw, 64px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Lenis smooth-scroll (no-op until the .lenis classes are applied at runtime) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+  /* Base color lives on <html> so the fixed -z-10 particle canvas shows
+     through behind the (transparent) body content. */
+  background: var(--color-bg);
+}
+
+body {
+  background: transparent;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-amber);
+  color: #1a1206;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Centered content rail, matching the original --maxw / --pad. */
+.wrap {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+/* Film-grain overlay — breaks the flat charcoal so it doesn't read as a plain
+   dark template. Fixed, non-interactive, blended softly over everything. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0.035;
+  /* No mix-blend-mode: a blended full-screen layer forces a full-viewport
+     recomposite every animation frame. Plain low-opacity noise composites once. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after {
+    display: none;
+  }
+}
+
+/* 3D depth layers: children that pop forward inside a tilting preserve-3d
+   parent. Larger Z = closer to the viewer = stronger parallax on tilt. */
+.depth-1 {
+  transform: translateZ(22px);
+}
+.depth-2 {
+  transform: translateZ(42px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

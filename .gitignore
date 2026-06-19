@@ -1,0 +1,13 @@
+/node_modules
+/.next
+/out
+/build
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+.env*
+.playwright-mcp/
+
+# local tooling / non-project
+.claude/
+pnpm-lock.yaml
