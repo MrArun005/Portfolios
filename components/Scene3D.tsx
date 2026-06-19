@@ -76,7 +76,7 @@ function Shard({
  */
 function Asteroid({ shake }: { shake: React.MutableRefObject<number> }) {
   const ref = useRef<Mesh>(null);
-  const st = useRef({ phase: "wait" as "wait" | "charge", t: 0, delay: 7, fx: -4, fy: 2 });
+  const st = useRef({ phase: "wait" as "wait" | "charge", t: 0, delay: 3.5, fx: -2, fy: 1.5 });
 
   useFrame((state, dt) => {
     const m = ref.current;
@@ -86,29 +86,30 @@ function Asteroid({ shake }: { shake: React.MutableRefObject<number> }) {
     if (s.phase === "wait") {
       s.t += dt;
       // parked deep in the fog (out of sight) until it's time to strike
-      m.position.set(s.fx, s.fy, -40);
-      m.scale.setScalar(0.5);
+      m.position.set(s.fx, s.fy, -42);
+      m.scale.setScalar(0.6);
       if (s.t >= s.delay) {
         s.phase = "charge";
         s.t = 0;
-        s.fx = (Math.random() - 0.5) * 7;
-        s.fy = (Math.random() - 0.5) * 4.5;
+        // start roughly head-on so it reads as coming AT you
+        s.fx = (Math.random() - 0.5) * 4;
+        s.fy = (Math.random() - 0.5) * 2.5;
       }
     } else {
       s.t += dt;
-      const dur = 0.85;
+      const dur = 1.0;
       const p = Math.min(s.t / dur, 1);
       const ease = p * p; // accelerate as it nears
-      const targetZ = state.camera.position.z + 4; // blows past the camera
-      m.position.set(s.fx * (1 - ease), s.fy * (1 - ease), -40 + (targetZ + 40) * ease);
-      m.scale.setScalar(0.5 + ease * 3.5);
+      const targetZ = state.camera.position.z + 2; // erupts right through the viewer
+      m.position.set(s.fx * (1 - ease), s.fy * (1 - ease), -42 + (targetZ + 42) * ease);
+      m.scale.setScalar(0.6 + ease * ease * 7); // balloons hard at the end
       m.rotation.x += dt * 4;
       m.rotation.y += dt * 5;
       if (p >= 1) {
         s.phase = "wait";
         s.t = 0;
-        s.delay = 11 + Math.random() * 13; // next strike in 11–24s
-        shake.current = 0.55; // jolt the camera
+        s.delay = 7 + Math.random() * 8; // next strike in 7–15s
+        shake.current = 0.7; // jolt the camera
       }
     }
   });
@@ -116,7 +117,15 @@ function Asteroid({ shake }: { shake: React.MutableRefObject<number> }) {
   return (
     <mesh ref={ref}>
       <icosahedronGeometry args={[1, 1]} />
-      <meshStandardMaterial color="#6b6256" roughness={1} metalness={0.05} flatShading />
+      {/* warm emissive glow so it's visible even when backlit and in-your-face */}
+      <meshStandardMaterial
+        color="#7a6a52"
+        emissive="#d98a3a"
+        emissiveIntensity={0.4}
+        roughness={0.9}
+        metalness={0.1}
+        flatShading
+      />
     </mesh>
   );
 }
