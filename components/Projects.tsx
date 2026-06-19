@@ -8,9 +8,11 @@ import { Reveal } from "./Reveal";
 import { Tilt3D } from "./Tilt3D";
 import { Modal } from "./Modal";
 import { FolkgroveCaseStudy } from "./FolkgroveCaseStudy";
+import { TailorwrightCaseStudy } from "./TailorwrightCaseStudy";
+import { FreeResumeProCaseStudy } from "./FreeResumeProCaseStudy";
 
 export function Projects() {
-  const [caseStudyOpen, setCaseStudyOpen] = useState(false);
+  const [openCase, setOpenCase] = useState<string | null>(null);
 
   return (
     <Section id="projects">
@@ -32,13 +34,15 @@ export function Projects() {
             className="sticky pb-6"
             style={{ top: `calc(5.5rem + ${i * 0.9}rem)`, zIndex: i + 1 }}
           >
-            <Card project={p} onCaseStudy={p.caseStudy ? () => setCaseStudyOpen(true) : undefined} />
+            <Card project={p} onCaseStudy={p.caseStudy ? () => setOpenCase(p.caseStudy!) : undefined} />
           </div>
         ))}
       </div>
 
-      <Modal open={caseStudyOpen} onClose={() => setCaseStudyOpen(false)} label="Folkgrove architecture case study">
-        <FolkgroveCaseStudy onClose={() => setCaseStudyOpen(false)} />
+      <Modal open={openCase !== null} onClose={() => setOpenCase(null)} label="Project case study">
+        {openCase === "folkgrove" && <FolkgroveCaseStudy onClose={() => setOpenCase(null)} />}
+        {openCase === "tailorwright" && <TailorwrightCaseStudy onClose={() => setOpenCase(null)} />}
+        {openCase === "freeresumepro" && <FreeResumeProCaseStudy onClose={() => setOpenCase(null)} />}
       </Modal>
     </Section>
   );
@@ -90,7 +94,7 @@ function Card({ project, onCaseStudy }: { project: Project; onCaseStudy?: () => 
             onClick={onCaseStudy}
             className="depth-2 inline-flex items-center gap-[0.4ch] rounded-md border border-teal/40 px-2.5 py-1 font-mono text-[0.75rem] text-teal transition-colors hover:border-teal hover:bg-teal/10"
           >
-            read the architecture →
+            read the case study →
           </button>
         )}
         {project.repo && (

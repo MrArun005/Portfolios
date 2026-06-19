@@ -157,7 +157,7 @@ export const projects: Project[] = [
     ],
     tags: ["TypeScript", "Next.js 15", "NestJS", "Prisma", "MySQL", "Redis / BullMQ", "Cerbos", "Turborepo", "PWA"],
     feature: true,
-    caseStudy: "/folkgrove",
+    caseStudy: "folkgrove",
     stats: [
       { value: "4-app", label: "Turborepo" },
       { value: "~2,600", label: "automated tests" },
@@ -176,6 +176,7 @@ export const projects: Project[] = [
     ],
     tags: ["Claude API", "Next.js", "TypeScript", "Node.js"],
     repo: "https://github.com/MrArun005/resume-tailor",
+    caseStudy: "tailorwright",
   },
   {
     tag: "// ai saas",
@@ -187,6 +188,7 @@ export const projects: Project[] = [
       "JWT auth with a privacy-first, zero-storage design — nothing is persisted.",
     ],
     tags: ["Next.js", "React", "Node.js", "Gemini API", "Vercel"],
+    caseStudy: "freeresumepro",
   },
   {
     tag: "// platform",
