@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { projects, type Project } from "@/lib/content";
 import { Eyebrow } from "./Eyebrow";
 import { Section, SectionTitle } from "./Section";
@@ -75,6 +76,14 @@ function Card({ project }: { project: Project }) {
       </div>
       <div className="flex items-center justify-between gap-4">
         <span className="depth-1 font-mono text-[0.72rem] tracking-[0.04em] text-amber">{project.tag}</span>
+        {project.caseStudy && (
+          <Link
+            href={project.caseStudy}
+            className="depth-2 inline-flex items-center gap-[0.4ch] font-mono text-[0.75rem] text-teal transition-colors hover:text-amber"
+          >
+            read the architecture →
+          </Link>
+        )}
         {project.repo && (
           <a
             href={project.repo}

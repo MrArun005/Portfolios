@@ -1,0 +1,180 @@
+/* Folkgrove case-study page. Self-contained styles, scoped under `.cs`,
+   remapped to the portfolio's design tokens + fonts so it reads as one site. */
+
+.cs {
+  --ground: var(--color-bg);
+  --surface: var(--color-bg-2);
+  --surface-2: var(--color-bg-3);
+  --line: var(--color-line-soft);
+  --line-strong: var(--color-line);
+  --text: #cdd6e1;
+  --heading: var(--color-ink);
+  --dim: var(--color-muted);
+  --accent: var(--color-teal);
+  --accent-soft: rgba(94, 200, 194, 0.14);
+  --accent-2: var(--color-amber);
+  --accent-2-soft: rgba(244, 184, 96, 0.16);
+  --maxw: 1080px;
+
+  background: var(--ground);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+.cs * { box-sizing: border-box; }
+
+.cs .cswrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+/* ---- top bar ---- */
+.cs .topbar {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 0; backdrop-filter: blur(8px);
+  background: color-mix(in srgb, var(--ground) 80%, transparent);
+  border-bottom: 1px solid var(--line);
+}
+.cs .topbar a { text-decoration: none; }
+.cs .brand { font-family: var(--font-mono); font-size: 0.82rem; color: var(--heading); }
+.cs .brand b { color: var(--accent-2); }
+.cs .back {
+  font-family: var(--font-mono); font-size: 0.78rem; color: var(--dim);
+  display: inline-flex; align-items: center; gap: 7px; transition: color 0.2s;
+}
+.cs .back:hover { color: var(--accent); }
+
+/* ---- type ---- */
+.cs .eyebrow {
+  font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--accent); margin: 0;
+}
+.cs .h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.3rem, 6vw, 4.4rem); line-height: 1.02;
+  letter-spacing: -0.03em; font-weight: 700; color: var(--heading); margin: 0;
+}
+.cs .h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.4vw, 2.3rem); line-height: 1.1;
+  letter-spacing: -0.02em; font-weight: 600; color: var(--heading); margin: 0;
+}
+.cs .lead { font-size: clamp(1.02rem, 1.6vw, 1.22rem); color: var(--text); max-width: 56ch; }
+.cs .muted { color: var(--dim); }
+.cs .mono { font-family: var(--font-mono); }
+
+/* ---- section rhythm ---- */
+.cs .section { padding: 88px 0; border-top: 1px solid var(--line); }
+.cs .section__head { display: flex; flex-direction: column; gap: 14px; max-width: 62ch; margin-bottom: 44px; }
+
+/* ---- hero ---- */
+.cs .hero { position: relative; padding: 72px 0 84px; }
+.cs .hero__grid {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(128, 160, 190, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(128, 160, 190, 0.06) 1px, transparent 1px);
+  background-size: 34px 34px;
+  -webkit-mask-image: radial-gradient(120% 80% at 30% 0%, #000 35%, transparent 78%);
+  mask-image: radial-gradient(120% 80% at 30% 0%, #000 35%, transparent 78%);
+}
+.cs .hero__inner { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 22px; }
+.cs .hero .lead { margin: 4px 0 0; }
+.cs .hero__meta { display: flex; flex-wrap: wrap; gap: 10px 8px; margin-top: 8px; }
+.cs .pill {
+  font-family: var(--font-mono); font-size: 0.74rem; color: var(--text);
+  border: 1px solid var(--line-strong); border-radius: 999px;
+  padding: 6px 13px; background: rgba(255, 255, 255, 0.02);
+}
+
+/* ---- request trace ---- */
+.cs .trace { margin-top: 40px; }
+.cs .trace__caption { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); margin: 0 0 18px; }
+.cs .trace__pipe { display: flex; align-items: stretch; gap: 0; overflow-x: auto; padding-bottom: 8px; }
+.cs .node {
+  flex: 1 0 132px; min-width: 132px;
+  background: var(--surface); border: 1px solid var(--line-strong); border-radius: 12px;
+  padding: 14px 14px 16px; display: flex; flex-direction: column; gap: 7px;
+}
+.cs .node__idx { font-family: var(--font-mono); font-size: 0.68rem; color: var(--accent); letter-spacing: 0.1em; }
+.cs .node__name { font-family: var(--font-display); font-weight: 600; color: var(--heading); font-size: 0.96rem; letter-spacing: -0.01em; }
+.cs .node__tech { font-family: var(--font-mono); font-size: 0.72rem; color: var(--dim); line-height: 1.45; }
+.cs .node--db { border-color: var(--accent-2-soft); background: linear-gradient(180deg, var(--surface), rgba(244, 184, 96, 0.05)); }
+.cs .node--db .node__idx { color: var(--accent-2); }
+
+.cs .connector { flex: 0 0 30px; align-self: center; height: 2px; position: relative; background: var(--line-strong); border-radius: 2px; overflow: hidden; }
+.cs .connector::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  transform: translateX(-100%); animation: csflow 2.6s linear infinite;
+}
+.cs .connector:nth-of-type(2)::after { animation-delay: 0s; }
+.cs .connector:nth-of-type(4)::after { animation-delay: 0.45s; }
+.cs .connector:nth-of-type(6)::after { animation-delay: 0.9s; }
+.cs .connector:nth-of-type(8)::after { animation-delay: 1.35s; }
+@keyframes csflow { 0% { transform: translateX(-100%); } 60%, 100% { transform: translateX(100%); } }
+
+/* ---- stat strip ---- */
+.cs .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.cs .stat { background: var(--ground); padding: 22px 20px; display: flex; flex-direction: column; gap: 6px; }
+.cs .stat__num { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; color: var(--heading); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.cs .stat__num span { color: var(--accent); }
+.cs .stat__label { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); }
+
+/* ---- tenancy diagram ---- */
+.cs .iso { display: grid; gap: 18px; }
+.cs .iso__control { border: 1px solid var(--line-strong); border-radius: 14px; background: var(--surface); padding: 18px 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+.cs .iso__control b { color: var(--heading); }
+.cs .iso__tenants { display: grid; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); gap: 14px; }
+.cs .tenant { border: 1px dashed var(--accent-2-soft); border-radius: 12px; background: var(--surface); padding: 16px; display: flex; flex-direction: column; gap: 10px; position: relative; }
+.cs .tenant__bar { display: flex; align-items: center; gap: 8px; }
+.cs .tenant__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.cs .tenant__name { font-family: var(--font-display); font-weight: 600; color: var(--heading); font-size: 0.92rem; }
+.cs .tenant__db { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-2); }
+.cs .tenant__rows { display: flex; flex-direction: column; gap: 5px; }
+.cs .tenant__row { height: 6px; border-radius: 3px; background: var(--surface-2); }
+.cs .tenant__row:nth-child(2) { width: 82%; }
+.cs .tenant__row:nth-child(3) { width: 64%; }
+.cs .iso__note { border-left: 2px solid var(--accent); padding: 4px 0 4px 18px; margin-top: 6px; color: var(--text); }
+.cs .iso__note code { font-family: var(--font-mono); font-size: 0.84em; color: var(--accent); background: var(--accent-soft); padding: 1px 6px; border-radius: 5px; }
+
+/* ---- layered stack ---- */
+.cs .layers { display: flex; flex-direction: column; gap: 12px; }
+.cs .layer { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); padding: 18px 20px; display: grid; grid-template-columns: 130px 1fr; gap: 8px 22px; align-items: start; }
+.cs .layer__tag { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); padding-top: 3px; }
+.cs .layer__items { display: flex; flex-wrap: wrap; gap: 8px; }
+.cs .chip { font-size: 0.84rem; color: var(--text); border: 1px solid var(--line-strong); border-radius: 8px; padding: 5px 11px; background: rgba(255, 255, 255, 0.015); }
+.cs .chip b { color: var(--heading); font-weight: 600; }
+
+/* ---- modules ---- */
+.cs .mods { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 10px; }
+.cs .mod { border: 1px solid var(--line); border-radius: 10px; padding: 13px 14px; background: var(--surface); display: flex; flex-direction: column; gap: 3px; }
+.cs .mod__n { font-family: var(--font-mono); font-size: 0.66rem; color: var(--dim); letter-spacing: 0.1em; }
+.cs .mod__t { font-family: var(--font-display); font-weight: 600; color: var(--heading); font-size: 0.92rem; }
+
+/* ---- regions ---- */
+.cs .regions { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cs .region { border: 1px solid var(--line-strong); border-radius: 14px; background: var(--surface); padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.cs .region__code { font-family: var(--font-mono); color: var(--accent); font-size: 0.82rem; letter-spacing: 0.06em; }
+.cs .region__name { color: var(--heading); font-weight: 600; }
+.cs .region__svc { display: flex; flex-wrap: wrap; gap: 7px; }
+
+/* ---- footer ---- */
+.cs .foot { padding: 56px 0 72px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+.cs .foot__line { font-family: var(--font-mono); font-size: 0.76rem; color: var(--dim); }
+.cs .foot__line b { color: var(--text); }
+.cs .foot__cta { margin-top: 16px; display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent); text-decoration: none; border: 1px solid var(--line-strong); border-radius: 9px; padding: 9px 15px; transition: border-color 0.2s, color 0.2s; }
+.cs .foot__cta:hover { border-color: var(--accent); }
+
+.cs a { color: var(--accent); }
+.cs :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+@media (max-width: 620px) {
+  .cs .layer { grid-template-columns: 1fr; }
+  .cs .regions { grid-template-columns: 1fr; }
+  .cs .section { padding: 64px 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs .connector::after { animation: none; transform: translateX(0); background: var(--accent); opacity: 0.5; }
+}

@@ -139,6 +139,7 @@ export type Project = {
   tags: string[];
   feature?: boolean;
   repo?: string;
+  caseStudy?: string;
   stats?: { value: string; label: string }[];
   points?: string[];
 };
@@ -156,6 +157,7 @@ export const projects: Project[] = [
     ],
     tags: ["TypeScript", "Next.js 15", "NestJS", "Prisma", "MySQL", "Redis / BullMQ", "Cerbos", "Turborepo", "PWA"],
     feature: true,
+    caseStudy: "/folkgrove",
     stats: [
       { value: "4-app", label: "Turborepo" },
       { value: "~2,600", label: "automated tests" },
