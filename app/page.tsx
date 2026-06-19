@@ -15,11 +15,13 @@ import { Capabilities } from "@/components/Capabilities";
 import { Approach } from "@/components/Approach";
 import { Cursor } from "@/components/Cursor";
 import { Quake } from "@/components/Quake";
+import { ResumeModalHost } from "@/components/ResumeModalHost";
 
 export default function Home() {
   return (
     <>
       <Cursor />
+      <ResumeModalHost />
       <Preloader />
       <SmoothScroll />
 

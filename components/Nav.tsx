@@ -69,8 +69,10 @@ export function Nav() {
           ))}
           <a
             href={meta.resume}
-            target="_blank"
-            rel="noopener"
+            onClick={(e) => {
+              e.preventDefault();
+              window.dispatchEvent(new Event("open-resume"));
+            }}
             className="group font-mono text-[0.82rem] text-muted transition-colors hover:text-ink"
           >
             <FlipText a="résumé" b="the receipts" />
@@ -121,9 +123,11 @@ export function Nav() {
               ))}
               <a
                 href={meta.resume}
-                target="_blank"
-                rel="noopener"
-                onClick={() => setOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpen(false);
+                  window.dispatchEvent(new Event("open-resume"));
+                }}
                 className="font-mono text-sm text-muted transition-colors hover:text-ink"
               >
                 résumé

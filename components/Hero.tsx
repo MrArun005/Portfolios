@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useSpring, useTransform, useMotionValue } from "framer-motion";
 import { hero, meta, proof } from "@/lib/content";
 import { ScrambleText } from "./ScrambleText";
@@ -9,15 +9,12 @@ import { MagneticButton } from "./MagneticButton";
 import { RotatingRole } from "./RotatingRole";
 import { RotatingTagline } from "./RotatingTagline";
 import { FlipText } from "./FlipText";
-import { Modal } from "./Modal";
-import { ResumeView } from "./ResumeView";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
-  const [resumeOpen, setResumeOpen] = useState(false);
 
   // Mouse-parallax for the aurora only — one reactive backdrop layer, not two.
   const mx = useMotionValue(0);
@@ -47,7 +44,6 @@ export function Hero() {
   };
 
   return (
-    <>
     <header
       id="top"
       ref={ref}
@@ -175,7 +171,7 @@ export function Hero() {
             href={meta.resume}
             onClick={(e) => {
               e.preventDefault();
-              setResumeOpen(true);
+              window.dispatchEvent(new Event("open-resume"));
             }}
           >
             <FileIcon /> <FlipText a="Résumé" b="the receipts" />
@@ -190,11 +186,6 @@ export function Hero() {
        </motion.div>
       </motion.div>
     </header>
-
-    <Modal open={resumeOpen} onClose={() => setResumeOpen(false)} label="Résumé">
-      <ResumeView />
-    </Modal>
-    </>
   );
 }
 
