@@ -51,6 +51,30 @@ function Core() {
   );
 }
 
+/**
+ * Holds the core centered through the hero (where the headline spans screen
+ * center), then glides it left as you scroll into the content sections so it
+ * passes *behind* the left-aligned text columns — giving the mix-blend text
+ * bright pixels to invert against instead of parking in the empty center gap.
+ */
+function ScrollDrift({
+  scroll,
+  children,
+}: {
+  scroll: React.MutableRefObject<number>;
+  children: React.ReactNode;
+}) {
+  const ref = useRef<Group>(null);
+  useFrame(() => {
+    if (!ref.current) return;
+    const s = scroll.current;
+    const t = Math.min(1, Math.max(0, (s - 0.06) / 0.32)); // ramp over 6%–38% scroll
+    const targetX = -1.75 * t; // world units left → ~left third of the screen
+    ref.current.position.x = lerp(ref.current.position.x, targetX, 0.06);
+  });
+  return <group ref={ref}>{children}</group>;
+}
+
 // --- procedural mountain heightfield ---
 function hash2(x: number, y: number): number {
   const n = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
@@ -337,9 +361,11 @@ export default function Scene3D() {
 
       <Suspense fallback={null}>
         <Terrain />
-        <Float speed={1.2} rotationIntensity={0.4} floatIntensity={0.8}>
-          <Core />
-        </Float>
+        <ScrollDrift scroll={scroll}>
+          <Float speed={1.2} rotationIntensity={0.4} floatIntensity={0.8}>
+            <Core />
+          </Float>
+        </ScrollDrift>
         <GltfAsteroid shake={shake} flash={flash} />
         <BackgroundDebris />
         <FlashLight flash={flash} />
