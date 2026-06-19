@@ -85,11 +85,11 @@ export function Hero() {
         initial={reduce ? false : "hidden"}
         animate={reduce ? false : "show"}
        >
-        <motion.div variants={reduce ? undefined : item} className="mb-3">
+        <motion.div variants={reduce ? undefined : item} className="mb-3 mix-blend-difference">
           <RotatingTagline />
         </motion.div>
 
-        <motion.div variants={reduce ? undefined : item} className="mb-6">
+        <motion.div variants={reduce ? undefined : item} className="mb-6 mix-blend-difference">
           <RotatingRole />
         </motion.div>
 
@@ -115,7 +115,7 @@ export function Hero() {
 
         <motion.span
           variants={reduce ? undefined : item}
-          className="mb-3 block font-mono text-[0.8rem] uppercase tracking-[0.22em] text-teal"
+          className="mb-3 block font-mono text-[0.8rem] uppercase tracking-[0.22em] text-teal mix-blend-difference"
         >
           {hero.kicker}
         </motion.span>
@@ -135,14 +135,14 @@ export function Hero() {
 
         <motion.p
           variants={reduce ? undefined : item}
-          className="mt-4 font-mono text-[clamp(0.92rem,2.2vw,1.05rem)] tracking-[-0.01em] text-teal"
+          className="mt-4 font-mono text-[clamp(0.92rem,2.2vw,1.05rem)] tracking-[-0.01em] text-teal mix-blend-difference"
         >
           <Typewriter text={meta.role} startDelay={1400} />
         </motion.p>
 
         <motion.p
           variants={reduce ? undefined : item}
-          className="mt-6 max-w-[56ch] text-[clamp(1.02rem,2.4vw,1.2rem)] text-muted"
+          className="mt-6 max-w-[56ch] text-[clamp(1.02rem,2.4vw,1.2rem)] text-muted mix-blend-difference"
         >
           {hero.lede.map((part, i) => (
             <span key={i} className={part.bold ? "font-semibold text-ink" : undefined}>

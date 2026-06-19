@@ -37,13 +37,13 @@ export function Experience() {
                 aria-hidden
                 className="absolute -left-[6px] top-1.5 h-3 w-3 rounded-full border-2 border-amber bg-bg"
               />
-              <h3 className="font-display text-[1.25rem] font-semibold tracking-[-0.01em]">
+              <h3 className="font-display text-[1.25rem] font-semibold tracking-[-0.01em] mix-blend-difference">
                 {role.role} · <span className="text-amber">{role.company}</span>
               </h3>
 
               {/* bullets (left) + stack & metrics rail (right) fill the full width */}
               <div className="mt-4 grid gap-x-10 gap-y-6 lg:grid-cols-[1fr_260px]">
-                <ul className="grid gap-[0.55rem]">
+                <ul className="grid gap-[0.55rem] mix-blend-difference">
                   {role.points.map((p, j) => (
                     <li key={j} className="relative pl-[1.3rem] text-muted">
                       <span aria-hidden className="absolute left-0 text-teal">

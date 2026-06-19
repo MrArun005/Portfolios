@@ -19,7 +19,7 @@ export function Capabilities() {
 
       <div className="grid gap-x-12 gap-y-12 md:grid-cols-2">
         {capabilities.map((c, i) => (
-          <Reveal key={c.title} delay={i * 0.05} className="flex gap-5">
+          <Reveal key={c.title} delay={i * 0.05} className="flex gap-5 mix-blend-difference">
             <span className="font-display text-[clamp(2.6rem,5vw,4.2rem)] font-bold leading-[0.9] text-amber/30">
               {String(i + 1).padStart(2, "0")}
             </span>
