@@ -40,93 +40,87 @@ function Core() {
   );
 }
 
-/** A floating wireframe shard at depth — debris the camera drifts past. */
-function Shard({
-  position,
-  scale,
-  color,
-  speed,
-}: {
-  position: [number, number, number];
-  scale: number;
-  color: string;
+type Rock = {
+  x: number;
+  y: number;
+  z: number;
   speed: number;
-}) {
-  const ref = useRef<Group>(null);
-  useFrame((_, dt) => {
-    if (ref.current) {
-      ref.current.rotation.x += dt * speed;
-      ref.current.rotation.y += dt * speed * 1.3;
-    }
-  });
-  return (
-    <group ref={ref} position={position} scale={scale}>
-      <mesh>
-        <icosahedronGeometry args={[1, 0]} />
-        <meshBasicMaterial color={color} wireframe transparent opacity={0.3} />
-      </mesh>
-    </group>
-  );
+  scale: number;
+  rsx: number;
+  rsy: number;
+};
+
+function spawnRock(far: boolean): Rock {
+  return {
+    x: (Math.random() - 0.5) * 18,
+    y: (Math.random() - 0.5) * 11,
+    z: far ? -55 - Math.random() * 25 : -10 - Math.random() * 50,
+    speed: 5 + Math.random() * 11, // units/sec toward the viewer
+    scale: 0.35 + Math.random() * 1.7,
+    rsx: (Math.random() - 0.5) * 2.2,
+    rsy: (Math.random() - 0.5) * 2.2,
+  };
 }
 
 /**
- * Jump-scare asteroid: lurks far away in the fog, then every so often charges
- * straight out of the depths at the viewer, ballooning huge before whipping
- * past — and kicks the camera with a shake on the near-miss.
+ * Asteroid storm: a continuous field of glowing rocks streaming out of the
+ * depths toward the viewer. Varied size/speed, slow enough to track, and the
+ * camera shakes when a big one passes close to dead-centre. The disaster.
  */
-function Asteroid({ shake }: { shake: React.MutableRefObject<number> }) {
-  const ref = useRef<Mesh>(null);
-  const st = useRef({ phase: "wait" as "wait" | "charge", t: 0, delay: 3.5, fx: -2, fy: 1.5 });
+function AsteroidStorm({
+  shake,
+  count = 14,
+}: {
+  shake: React.MutableRefObject<number>;
+  count?: number;
+}) {
+  const rocks = useRef<Rock[]>(Array.from({ length: count }, (_, i) => spawnRock(i % 2 === 0)));
+  const meshes = useRef<(Mesh | null)[]>([]);
 
   useFrame((state, dt) => {
-    const m = ref.current;
-    if (!m) return;
-    const s = st.current;
-
-    if (s.phase === "wait") {
-      s.t += dt;
-      // parked deep in the fog (out of sight) until it's time to strike
-      m.position.set(s.fx, s.fy, -42);
-      m.scale.setScalar(0.6);
-      if (s.t >= s.delay) {
-        s.phase = "charge";
-        s.t = 0;
-        // start roughly head-on so it reads as coming AT you
-        s.fx = (Math.random() - 0.5) * 4;
-        s.fy = (Math.random() - 0.5) * 2.5;
+    const camZ = state.camera.position.z;
+    const rs = rocks.current;
+    for (let i = 0; i < rs.length; i++) {
+      const r = rs[i];
+      const m = meshes.current[i];
+      if (!m) continue;
+      r.z += r.speed * dt;
+      if (r.z > camZ + 6) {
+        // a big rock that just blew past near dead-centre kicks the camera
+        if (r.scale > 1.2 && Math.abs(r.x) < 3 && Math.abs(r.y) < 2.2) {
+          shake.current = Math.max(shake.current, 0.45);
+        }
+        rocks.current[i] = spawnRock(true);
+        continue;
       }
-    } else {
-      s.t += dt;
-      const dur = 1.0;
-      const p = Math.min(s.t / dur, 1);
-      const ease = p * p; // accelerate as it nears
-      const targetZ = state.camera.position.z + 2; // erupts right through the viewer
-      m.position.set(s.fx * (1 - ease), s.fy * (1 - ease), -42 + (targetZ + 42) * ease);
-      m.scale.setScalar(0.6 + ease * ease * 7); // balloons hard at the end
-      m.rotation.x += dt * 4;
-      m.rotation.y += dt * 5;
-      if (p >= 1) {
-        s.phase = "wait";
-        s.t = 0;
-        s.delay = 7 + Math.random() * 8; // next strike in 7–15s
-        shake.current = 0.7; // jolt the camera
-      }
+      m.position.set(r.x, r.y, r.z);
+      m.scale.setScalar(r.scale);
+      m.rotation.x += r.rsx * dt;
+      m.rotation.y += r.rsy * dt;
     }
   });
 
   return (
-    <mesh ref={ref}>
-      <icosahedronGeometry args={[1, 1]} />
-      {/* warm emissive glow so it's visible even when backlit and in-your-face */}
-      <meshStandardMaterial
-        color="#7a6a52"
-        emissive="#d98a3a"
-        emissiveIntensity={0.4}
-        roughness={0.9}
-        metalness={0.1}
-        flatShading
-      />
-    </mesh>
+    <group>
+      {rocks.current.map((_, i) => (
+        <mesh
+          key={i}
+          ref={(el) => {
+            meshes.current[i] = el;
+          }}
+        >
+          <icosahedronGeometry args={[1, 1]} />
+          <meshStandardMaterial
+            color="#7a6a52"
+            emissive="#d98a3a"
+            emissiveIntensity={0.35}
+            roughness={0.9}
+            metalness={0.1}
+            flatShading
+          />
+        </mesh>
+      ))}
+    </group>
   );
 }
 
@@ -199,12 +193,7 @@ export default function Scene3D() {
         <Core />
       </Float>
 
-      <Shard position={[-5, 2.4, -3]} scale={0.7} color={TEAL} speed={0.16} />
-      <Shard position={[6, -2.4, -6]} scale={1.1} color={AMBER} speed={0.1} />
-      <Shard position={[-6.5, -3, -10]} scale={1.5} color={TEAL} speed={0.08} />
-      <Shard position={[4, 3.4, -13]} scale={0.9} color={AMBER} speed={0.12} />
-
-      <Asteroid shake={shake} />
+      <AsteroidStorm shake={shake} />
 
       <Rig scroll={scroll} mouse={mouse} shake={shake} />
     </Canvas>
