@@ -37,9 +37,10 @@ function Core() {
         <meshStandardMaterial
           color={AMBER}
           emissive={AMBER}
-          emissiveIntensity={0.32}
-          roughness={0.18}
-          metalness={0.75}
+          emissiveIntensity={2.4}
+          toneMapped={false}
+          roughness={0.25}
+          metalness={0.4}
           flatShading
         />
       </mesh>
