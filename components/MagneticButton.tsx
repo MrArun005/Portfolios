@@ -13,12 +13,14 @@ export function MagneticButton({
   primary,
   external,
   strength = 0.4,
+  onClick,
 }: {
   href: string;
   children: React.ReactNode;
   primary?: boolean;
   external?: boolean;
   strength?: number;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLAnchorElement>(null);
@@ -49,6 +51,7 @@ export function MagneticButton({
       ref={ref}
       href={href}
       {...(external ? { target: "_blank", rel: "noopener" } : {})}
+      onClick={onClick}
       onMouseMove={onMove}
       onMouseLeave={reset}
       style={reduce ? undefined : { x: sx, y: sy }}

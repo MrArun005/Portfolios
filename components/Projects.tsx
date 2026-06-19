@@ -1,13 +1,17 @@
 "use client";
 
-import Link from "next/link";
+import { useState } from "react";
 import { projects, type Project } from "@/lib/content";
 import { Eyebrow } from "./Eyebrow";
 import { Section, SectionTitle } from "./Section";
 import { Reveal } from "./Reveal";
 import { Tilt3D } from "./Tilt3D";
+import { Modal } from "./Modal";
+import { FolkgroveCaseStudy } from "./FolkgroveCaseStudy";
 
 export function Projects() {
+  const [caseStudyOpen, setCaseStudyOpen] = useState(false);
+
   return (
     <Section id="projects">
       <Reveal>
@@ -28,15 +32,19 @@ export function Projects() {
             className="sticky pb-6"
             style={{ top: `calc(5.5rem + ${i * 0.9}rem)`, zIndex: i + 1 }}
           >
-            <Card project={p} />
+            <Card project={p} onCaseStudy={p.caseStudy ? () => setCaseStudyOpen(true) : undefined} />
           </div>
         ))}
       </div>
+
+      <Modal open={caseStudyOpen} onClose={() => setCaseStudyOpen(false)} label="Folkgrove architecture case study">
+        <FolkgroveCaseStudy onClose={() => setCaseStudyOpen(false)} />
+      </Modal>
     </Section>
   );
 }
 
-function Card({ project }: { project: Project }) {
+function Card({ project, onCaseStudy }: { project: Project; onCaseStudy?: () => void }) {
   const { feature, stats } = project;
   const slug = project.title.split(/[\s—-]+/)[0].toLowerCase();
   return (
@@ -76,13 +84,14 @@ function Card({ project }: { project: Project }) {
       </div>
       <div className="flex items-center justify-between gap-4">
         <span className="depth-1 font-mono text-[0.72rem] tracking-[0.04em] text-amber">{project.tag}</span>
-        {project.caseStudy && (
-          <Link
-            href={project.caseStudy}
-            className="depth-2 inline-flex items-center gap-[0.4ch] font-mono text-[0.75rem] text-teal transition-colors hover:text-amber"
+        {onCaseStudy && (
+          <button
+            type="button"
+            onClick={onCaseStudy}
+            className="depth-2 inline-flex items-center gap-[0.4ch] rounded-md border border-teal/40 px-2.5 py-1 font-mono text-[0.75rem] text-teal transition-colors hover:border-teal hover:bg-teal/10"
           >
             read the architecture →
-          </Link>
+          </button>
         )}
         {project.repo && (
           <a

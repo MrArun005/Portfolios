@@ -1,28 +1,9 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import "./folkgrove.css";
+import "./folkgrove-cs.css";
 
-export const metadata: Metadata = {
-  title: "Folkgrove — Platform Architecture · Arun Mallikarjuna",
-  description:
-    "Architecture case study: a multi-tenant HRMS with an isolated database per tenant — control plane, per-tenant connection budget, 14 HR modules, and two-region data residency.",
-};
-
-export default function Folkgrove() {
+/** Folkgrove platform-architecture case study, rendered inside an in-page modal. */
+export function FolkgroveCaseStudy({ onClose }: { onClose?: () => void }) {
   return (
-    <main className="cs">
-      {/* top bar */}
-      <div className="cswrap">
-        <div className="topbar">
-          <Link href="/" className="brand">
-            arun<b>.</b>mallikarjuna
-          </Link>
-          <Link href="/#projects" className="back">
-            ← back to portfolio
-          </Link>
-        </div>
-      </div>
-
+    <div className="cs">
       {/* HERO */}
       <header className="hero">
         <div className="hero__grid" />
@@ -289,9 +270,9 @@ export default function Folkgrove() {
           <p className="foot__line"><b>Folkgrove</b> — multi-tenant HRMS · isolated database per tenant</p>
           <p className="foot__line">82 tenant + 17 control data models · ~2,400 automated tests · Turborepo</p>
           <p className="foot__line muted">Scale figures are design targets from the platform spec.</p>
-          <Link href="/#contact" className="foot__cta">Work with me →</Link>
+          <a href="#contact" className="foot__cta" onClick={onClose}>Work with me →</a>
         </div>
       </footer>
-    </main>
+    </div>
   );
 }

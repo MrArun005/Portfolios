@@ -1,5 +1,6 @@
-/* Folkgrove case-study page. Self-contained styles, scoped under `.cs`,
-   remapped to the portfolio's design tokens + fonts so it reads as one site. */
+/* Folkgrove case-study content. Self-contained styles, scoped under `.cs`,
+   remapped to the portfolio's design tokens + fonts so it reads as one site.
+   Rendered inside an in-page modal (see CaseStudyModal). */
 
 .cs {
   --ground: var(--color-bg);
@@ -21,29 +22,10 @@
   font-family: var(--font-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
-  overflow-x: hidden;
 }
 .cs * { box-sizing: border-box; }
 
 .cs .cswrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
-
-/* ---- top bar ---- */
-.cs .topbar {
-  position: sticky; top: 0; z-index: 10;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 0; backdrop-filter: blur(8px);
-  background: color-mix(in srgb, var(--ground) 80%, transparent);
-  border-bottom: 1px solid var(--line);
-}
-.cs .topbar a { text-decoration: none; }
-.cs .brand { font-family: var(--font-mono); font-size: 0.82rem; color: var(--heading); }
-.cs .brand b { color: var(--accent-2); }
-.cs .back {
-  font-family: var(--font-mono); font-size: 0.78rem; color: var(--dim);
-  display: inline-flex; align-items: center; gap: 7px; transition: color 0.2s;
-}
-.cs .back:hover { color: var(--accent); }
 
 /* ---- type ---- */
 .cs .eyebrow {
@@ -52,24 +34,24 @@
 }
 .cs .h1 {
   font-family: var(--font-display);
-  font-size: clamp(2.3rem, 6vw, 4.4rem); line-height: 1.02;
+  font-size: clamp(2rem, 5vw, 3.8rem); line-height: 1.03;
   letter-spacing: -0.03em; font-weight: 700; color: var(--heading); margin: 0;
 }
 .cs .h2 {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3.4vw, 2.3rem); line-height: 1.1;
+  font-size: clamp(1.45rem, 3.2vw, 2.15rem); line-height: 1.1;
   letter-spacing: -0.02em; font-weight: 600; color: var(--heading); margin: 0;
 }
-.cs .lead { font-size: clamp(1.02rem, 1.6vw, 1.22rem); color: var(--text); max-width: 56ch; }
+.cs .lead { font-size: clamp(1rem, 1.6vw, 1.18rem); color: var(--text); max-width: 56ch; }
 .cs .muted { color: var(--dim); }
 .cs .mono { font-family: var(--font-mono); }
 
 /* ---- section rhythm ---- */
-.cs .section { padding: 88px 0; border-top: 1px solid var(--line); }
-.cs .section__head { display: flex; flex-direction: column; gap: 14px; max-width: 62ch; margin-bottom: 44px; }
+.cs .section { padding: 72px 0; border-top: 1px solid var(--line); }
+.cs .section__head { display: flex; flex-direction: column; gap: 14px; max-width: 62ch; margin-bottom: 40px; }
 
 /* ---- hero ---- */
-.cs .hero { position: relative; padding: 72px 0 84px; }
+.cs .hero { position: relative; padding: 52px 0 72px; }
 .cs .hero__grid {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background-image:
@@ -79,7 +61,7 @@
   -webkit-mask-image: radial-gradient(120% 80% at 30% 0%, #000 35%, transparent 78%);
   mask-image: radial-gradient(120% 80% at 30% 0%, #000 35%, transparent 78%);
 }
-.cs .hero__inner { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 22px; }
+.cs .hero__inner { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 20px; }
 .cs .hero .lead { margin: 4px 0 0; }
 .cs .hero__meta { display: flex; flex-wrap: wrap; gap: 10px 8px; margin-top: 8px; }
 .cs .pill {
@@ -89,7 +71,7 @@
 }
 
 /* ---- request trace ---- */
-.cs .trace { margin-top: 40px; }
+.cs .trace { margin-top: 36px; }
 .cs .trace__caption { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); margin: 0 0 18px; }
 .cs .trace__pipe { display: flex; align-items: stretch; gap: 0; overflow-x: auto; padding-bottom: 8px; }
 .cs .node {
@@ -161,7 +143,7 @@
 .cs .region__svc { display: flex; flex-wrap: wrap; gap: 7px; }
 
 /* ---- footer ---- */
-.cs .foot { padding: 56px 0 72px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+.cs .foot { padding: 48px 0 8px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
 .cs .foot__line { font-family: var(--font-mono); font-size: 0.76rem; color: var(--dim); }
 .cs .foot__line b { color: var(--text); }
 .cs .foot__cta { margin-top: 16px; display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent); text-decoration: none; border: 1px solid var(--line-strong); border-radius: 9px; padding: 9px 15px; transition: border-color 0.2s, color 0.2s; }
@@ -173,7 +155,7 @@
 @media (max-width: 620px) {
   .cs .layer { grid-template-columns: 1fr; }
   .cs .regions { grid-template-columns: 1fr; }
-  .cs .section { padding: 64px 0; }
+  .cs .section { padding: 56px 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .cs .connector::after { animation: none; transform: translateX(0); background: var(--accent); opacity: 0.5; }
