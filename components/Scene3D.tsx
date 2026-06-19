@@ -67,10 +67,15 @@ function ScrollDrift({
   const ref = useRef<Group>(null);
   useFrame(() => {
     if (!ref.current) return;
-    const s = scroll.current;
-    const t = Math.min(1, Math.max(0, (s - 0.06) / 0.32)); // ramp over 6%–38% scroll
-    const targetX = -1.75 * t; // world units left → ~left third of the screen
-    ref.current.position.x = lerp(ref.current.position.x, targetX, 0.06);
+    const s = Math.min(1, Math.max(0, scroll.current));
+    // Smooth arc: centered in the hero, swings left + up behind the content
+    // sections (so it crosses both headers and body text), then eases back
+    // toward center by the footer so it never cuts off at the screen edge.
+    const arc = Math.sin(s * Math.PI); // 0 at top & bottom, 1 at mid-scroll
+    const targetX = -1.65 * arc;
+    const targetY = 0.7 * arc;
+    ref.current.position.x = lerp(ref.current.position.x, targetX, 0.055);
+    ref.current.position.y = lerp(ref.current.position.y, targetY, 0.055);
   });
   return <group ref={ref}>{children}</group>;
 }
