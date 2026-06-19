@@ -40,87 +40,102 @@ function Core() {
   );
 }
 
-type Rock = {
-  x: number;
-  y: number;
-  z: number;
-  speed: number;
-  scale: number;
-  rsx: number;
-  rsy: number;
-};
-
-function spawnRock(far: boolean): Rock {
-  return {
-    x: (Math.random() - 0.5) * 18,
-    y: (Math.random() - 0.5) * 11,
-    z: far ? -55 - Math.random() * 25 : -10 - Math.random() * 50,
-    speed: 5 + Math.random() * 11, // units/sec toward the viewer
-    scale: 0.35 + Math.random() * 1.7,
-    rsx: (Math.random() - 0.5) * 2.2,
-    rsy: (Math.random() - 0.5) * 2.2,
-  };
-}
+const easeOut = (p: number) => 1 - (1 - p) * (1 - p);
 
 /**
- * Asteroid storm: a continuous field of glowing rocks streaming out of the
- * depths toward the viewer. Varied size/speed, slow enough to track, and the
- * camera shakes when a big one passes close to dead-centre. The disaster.
+ * Choreographed jump-scare asteroid:
+ *   reveal  — drifts out of the fog into clear view so you notice it
+ *   dance   — hovers and wobbles in place for a beat ("wait... what's that?")
+ *   strike  — suddenly lunges straight at your face, ballooning, + camera shake
+ * Then it resets and waits before doing it again.
  */
-function AsteroidStorm({
-  shake,
-  count = 14,
-}: {
-  shake: React.MutableRefObject<number>;
-  count?: number;
-}) {
-  const rocks = useRef<Rock[]>(Array.from({ length: count }, (_, i) => spawnRock(i % 2 === 0)));
-  const meshes = useRef<(Mesh | null)[]>([]);
+function Asteroid({ shake }: { shake: React.MutableRefObject<number> }) {
+  const ref = useRef<Mesh>(null);
+  const s = useRef({
+    phase: "wait" as "wait" | "reveal" | "dance" | "strike",
+    t: 0,
+    delay: 4,
+    rx: 0,
+    ry: 0,
+    sx: 0,
+    sy: 0,
+    sz: -4,
+  });
 
   useFrame((state, dt) => {
-    const camZ = state.camera.position.z;
-    const rs = rocks.current;
-    for (let i = 0; i < rs.length; i++) {
-      const r = rs[i];
-      const m = meshes.current[i];
-      if (!m) continue;
-      r.z += r.speed * dt;
-      if (r.z > camZ + 6) {
-        // a big rock that just blew past near dead-centre kicks the camera
-        if (r.scale > 1.2 && Math.abs(r.x) < 3 && Math.abs(r.y) < 2.2) {
-          shake.current = Math.max(shake.current, 0.45);
-        }
-        rocks.current[i] = spawnRock(true);
-        continue;
+    const m = ref.current;
+    if (!m) return;
+    const st = s.current;
+    st.t += dt;
+
+    if (st.phase === "wait") {
+      m.position.set(0, 0, -55);
+      m.scale.setScalar(0.4);
+      if (st.t >= st.delay) {
+        st.phase = "reveal";
+        st.t = 0;
+        st.rx = (Math.random() - 0.5) * 5;
+        st.ry = (Math.random() - 0.5) * 3;
       }
-      m.position.set(r.x, r.y, r.z);
-      m.scale.setScalar(r.scale);
-      m.rotation.x += r.rsx * dt;
-      m.rotation.y += r.rsy * dt;
+    } else if (st.phase === "reveal") {
+      const p = Math.min(st.t / 1.1, 1);
+      const e = easeOut(p);
+      m.position.set(st.rx * e, st.ry * e, -55 + (-6 - -55) * e); // far → -6, in view
+      m.scale.setScalar(0.4 + e * 1.1);
+      m.rotation.x += dt * 1.4;
+      m.rotation.y += dt * 1.7;
+      if (p >= 1) {
+        st.phase = "dance";
+        st.t = 0;
+      }
+    } else if (st.phase === "dance") {
+      const dur = 1.7;
+      const k = st.t / dur;
+      // hover + wobble, creeping a touch closer (menacing) before it pounces
+      m.position.set(
+        st.rx + Math.sin(st.t * 3) * 0.7,
+        st.ry + Math.sin(st.t * 4.3 + 1) * 0.5,
+        -6 + k * 2,
+      );
+      m.scale.setScalar(1.5 + k * 0.4);
+      m.rotation.x += dt * 2.4;
+      m.rotation.y += dt * 2.8;
+      if (st.t >= dur) {
+        st.phase = "strike";
+        st.t = 0;
+        st.sx = m.position.x;
+        st.sy = m.position.y;
+        st.sz = m.position.z;
+      }
+    } else {
+      const p = Math.min(st.t / 0.55, 1);
+      const e = p * p; // accelerate hard
+      const tz = state.camera.position.z + 2; // erupts through the viewer
+      m.position.set(st.sx * (1 - e), st.sy * (1 - e), st.sz + (tz - st.sz) * e);
+      m.scale.setScalar(1.9 + e * e * 8);
+      m.rotation.x += dt * 7;
+      m.rotation.y += dt * 8;
+      if (p >= 1) {
+        st.phase = "wait";
+        st.t = 0;
+        st.delay = 9 + Math.random() * 8; // breather before the next one
+        shake.current = 0.85;
+      }
     }
   });
 
   return (
-    <group>
-      {rocks.current.map((_, i) => (
-        <mesh
-          key={i}
-          ref={(el) => {
-            meshes.current[i] = el;
-          }}
-        >
-          <icosahedronGeometry args={[1, 1]} />
-          <meshStandardMaterial
-            color="#7a6a52"
-            emissive="#d98a3a"
-            emissiveIntensity={0.35}
-            roughness={0.9}
-            metalness={0.1}
-            flatShading
-          />
-        </mesh>
-      ))}
-    </group>
+    <mesh ref={ref}>
+      <icosahedronGeometry args={[1, 1]} />
+      <meshStandardMaterial
+        color="#7a6a52"
+        emissive="#d98a3a"
+        emissiveIntensity={0.4}
+        roughness={0.9}
+        metalness={0.1}
+        flatShading
+      />
+    </mesh>
   );
 }
 
@@ -193,7 +208,7 @@ export default function Scene3D() {
         <Core />
       </Float>
 
-      <AsteroidStorm shake={shake} />
+      <Asteroid shake={shake} />
 
       <Rig scroll={scroll} mouse={mouse} shake={shake} />
     </Canvas>
