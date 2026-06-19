@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Stars, Float } from "@react-three/drei";
 import { useReducedMotion } from "framer-motion";
-import type { Group, Mesh } from "three";
+import { IcosahedronGeometry, Vector3, type BufferGeometry, type Group, type Mesh } from "three";
 
 const AMBER = "#f4b860";
 const TEAL = "#5ec8c2";
@@ -42,6 +42,28 @@ function Core() {
 
 const easeOut = (p: number) => 1 - (1 - p) * (1 - p);
 
+/** A detailed sphere whose vertices are pushed around by layered noise — an
+ *  irregular, lumpy rock rather than a clean polyhedron. Flat-shaded → facets. */
+function makeAsteroidGeometry(): BufferGeometry {
+  const geo = new IcosahedronGeometry(1, 5);
+  const pos = geo.attributes.position;
+  const v = new Vector3();
+  for (let i = 0; i < pos.count; i++) {
+    v.fromBufferAttribute(pos, i).normalize();
+    const n =
+      0.42 * Math.sin(v.x * 2.7 + v.y * 1.9) +
+      0.26 * Math.sin(v.y * 5.1 + v.z * 3.7) +
+      0.16 * Math.sin(v.z * 8.9 + v.x * 6.3) +
+      0.1 * Math.sin(v.x * 14.2 + v.z * 11.6) +
+      0.07 * Math.sin(v.y * 21 + v.x * 17);
+    const r = 1 + n * 0.5; // craggy displacement
+    v.multiplyScalar(r);
+    pos.setXYZ(i, v.x, v.y, v.z);
+  }
+  geo.computeVertexNormals();
+  return geo;
+}
+
 /**
  * Choreographed jump-scare asteroid:
  *   reveal  — drifts out of the fog into clear view so you notice it
@@ -51,6 +73,7 @@ const easeOut = (p: number) => 1 - (1 - p) * (1 - p);
  */
 function Asteroid({ shake }: { shake: React.MutableRefObject<number> }) {
   const ref = useRef<Mesh>(null);
+  const geometry = useMemo(() => makeAsteroidGeometry(), []);
   const s = useRef({
     phase: "wait" as "wait" | "reveal" | "dance" | "strike",
     t: 0,
@@ -125,13 +148,12 @@ function Asteroid({ shake }: { shake: React.MutableRefObject<number> }) {
   });
 
   return (
-    <mesh ref={ref}>
-      <icosahedronGeometry args={[1, 1]} />
+    <mesh ref={ref} geometry={geometry}>
       <meshStandardMaterial
         color="#7a6a52"
         emissive="#d98a3a"
         emissiveIntensity={0.4}
-        roughness={0.9}
+        roughness={0.95}
         metalness={0.1}
         flatShading
       />
