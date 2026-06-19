@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Stars, Float } from "@react-three/drei";
 import { useReducedMotion } from "framer-motion";
-import type { Group } from "three";
+import type { Group, Mesh } from "three";
 
 const AMBER = "#f4b860";
 const TEAL = "#5ec8c2";
@@ -69,22 +69,82 @@ function Shard({
   );
 }
 
-/** Camera rig: mouse parallax + gentle scroll-driven drift through the space. */
+/**
+ * Jump-scare asteroid: lurks far away in the fog, then every so often charges
+ * straight out of the depths at the viewer, ballooning huge before whipping
+ * past — and kicks the camera with a shake on the near-miss.
+ */
+function Asteroid({ shake }: { shake: React.MutableRefObject<number> }) {
+  const ref = useRef<Mesh>(null);
+  const st = useRef({ phase: "wait" as "wait" | "charge", t: 0, delay: 7, fx: -4, fy: 2 });
+
+  useFrame((state, dt) => {
+    const m = ref.current;
+    if (!m) return;
+    const s = st.current;
+
+    if (s.phase === "wait") {
+      s.t += dt;
+      // parked deep in the fog (out of sight) until it's time to strike
+      m.position.set(s.fx, s.fy, -40);
+      m.scale.setScalar(0.5);
+      if (s.t >= s.delay) {
+        s.phase = "charge";
+        s.t = 0;
+        s.fx = (Math.random() - 0.5) * 7;
+        s.fy = (Math.random() - 0.5) * 4.5;
+      }
+    } else {
+      s.t += dt;
+      const dur = 0.85;
+      const p = Math.min(s.t / dur, 1);
+      const ease = p * p; // accelerate as it nears
+      const targetZ = state.camera.position.z + 4; // blows past the camera
+      m.position.set(s.fx * (1 - ease), s.fy * (1 - ease), -40 + (targetZ + 40) * ease);
+      m.scale.setScalar(0.5 + ease * 3.5);
+      m.rotation.x += dt * 4;
+      m.rotation.y += dt * 5;
+      if (p >= 1) {
+        s.phase = "wait";
+        s.t = 0;
+        s.delay = 11 + Math.random() * 13; // next strike in 11–24s
+        shake.current = 0.55; // jolt the camera
+      }
+    }
+  });
+
+  return (
+    <mesh ref={ref}>
+      <icosahedronGeometry args={[1, 1]} />
+      <meshStandardMaterial color="#6b6256" roughness={1} metalness={0.05} flatShading />
+    </mesh>
+  );
+}
+
+/** Camera rig: mouse parallax + scroll-driven fly-in, plus decaying shake. */
 function Rig({
   scroll,
   mouse,
+  shake,
 }: {
   scroll: React.MutableRefObject<number>;
   mouse: React.MutableRefObject<{ x: number; y: number }>;
+  shake: React.MutableRefObject<number>;
 }) {
+  const base = useRef({ x: 0, y: 0, z: 8.5 });
   useFrame((state) => {
     const s = scroll.current;
-    // Parallax only on x/y (no scroll drift), and fly TOWARD the centred core as
-    // you scroll so it grows and reads as approaching the viewer — not missing.
-    state.camera.position.x = lerp(state.camera.position.x, mouse.current.x * 0.9, 0.045);
-    state.camera.position.y = lerp(state.camera.position.y, mouse.current.y * -0.7, 0.045);
-    state.camera.position.z = lerp(state.camera.position.z, 8.5 - s * 5.5, 0.05);
+    const b = base.current;
+    // smooth base position (parallax + fly toward the centred core on scroll)
+    b.x = lerp(b.x, mouse.current.x * 0.9, 0.045);
+    b.y = lerp(b.y, mouse.current.y * -0.7, 0.045);
+    b.z = lerp(b.z, 8.5 - s * 5.5, 0.05);
+    const sh = shake.current;
+    state.camera.position.x = b.x + (Math.random() - 0.5) * sh;
+    state.camera.position.y = b.y + (Math.random() - 0.5) * sh;
+    state.camera.position.z = b.z;
     state.camera.lookAt(0, 0, 0);
+    shake.current = sh > 0.002 ? sh * 0.86 : 0; // decay
   });
   return null;
 }
@@ -92,6 +152,7 @@ function Rig({
 export default function Scene3D() {
   const scroll = useRef(0);
   const mouse = useRef({ x: 0, y: 0 });
+  const shake = useRef(0);
 
   useEffect(() => {
     const onScroll = () => {
@@ -134,7 +195,9 @@ export default function Scene3D() {
       <Shard position={[-6.5, -3, -10]} scale={1.5} color={TEAL} speed={0.08} />
       <Shard position={[4, 3.4, -13]} scale={0.9} color={AMBER} speed={0.12} />
 
-      <Rig scroll={scroll} mouse={mouse} />
+      <Asteroid shake={shake} />
+
+      <Rig scroll={scroll} mouse={mouse} shake={shake} />
     </Canvas>
   );
 }
