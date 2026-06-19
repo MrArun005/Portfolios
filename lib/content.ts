@@ -71,7 +71,17 @@ export const about: { whoami: string; body: Span[]; stats: Stat[] } = {
   ],
 };
 
-export const experience = [
+export type Role = {
+  when: string;
+  where: string;
+  role: string;
+  company: string;
+  points: string[];
+  stack: string[];
+  metrics: { value: string; label: string }[];
+};
+
+export const experience: Role[] = [
   {
     when: "Jan 2024 — Present",
     where: "Bengaluru, India",
@@ -81,7 +91,14 @@ export const experience = [
       "Owned architecture and design — patterns, reliability, scaling — of a rule-based Promotion Engine; the team's go-to for technical decisions, letting business teams launch telecom campaigns with zero redeployment.",
       "Led production incident response across distributed microservices, debugging and resolving failures while sustaining 99.5% availability under high transaction volume.",
       "Ran end-to-end QA (SIT, smoke, UAT) and reviewed teammates' code against PRDs and requirements before release.",
-      "Built REST APIs, reporting dashboards, and third-party integrations; improved frontend performance ~30% via optimized React rendering and state management.",
+      "Built REST APIs, reporting dashboards, and third-party integrations aligned to clear business and customer outcomes.",
+      "Improved frontend performance ~30% through optimized React rendering and state management.",
+    ],
+    stack: ["Node.js", "React", "Microservices", "REST APIs", "Rule Engine", "SQL"],
+    metrics: [
+      { value: "99.5%", label: "availability at scale" },
+      { value: "~30%", label: "faster frontend" },
+      { value: "0", label: "redeploys to launch a campaign" },
     ],
   },
   {
@@ -93,7 +110,12 @@ export const experience = [
       "Built scalable, high-performance Node.js REST APIs for high-volume transaction processing, using async concurrency to keep latency low under load.",
       "Contributed to the microservices architecture and design, improving end-to-end throughput and reliability.",
       "Translated a real customer problem into a shipped feature — configurable self-serve workflows for non-technical teams — cutting turnaround time.",
-      "Optimized rule-evaluation logic to reduce per-request latency.",
+      "Optimized rule-evaluation logic to reduce per-request latency and improve efficiency.",
+    ],
+    stack: ["Node.js", "Express.js", "REST APIs", "Microservices", "async/await"],
+    metrics: [
+      { value: "high-vol", label: "transaction processing" },
+      { value: "low-latency", label: "under heavy load" },
     ],
   },
 ] as const;
