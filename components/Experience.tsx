@@ -19,9 +19,8 @@ export function Experience() {
 
       <div className="grid">
         {experience.map((role, i) => (
-          <Reveal
+          <div
             key={`${role.company}-${i}`}
-            delay={i * 0.05}
             className="grid gap-[clamp(0.5rem,3vw,2.5rem)] py-7 md:grid-cols-[210px_1fr]"
           >
             <div className="font-mono text-[0.82rem] text-muted">
@@ -88,7 +87,7 @@ export function Experience() {
                 </aside>
               </div>
             </div>
-          </Reveal>
+          </div>
         ))}
       </div>
     </Section>
