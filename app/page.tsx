@@ -14,6 +14,7 @@ import { Marquee } from "@/components/Marquee";
 import { Capabilities } from "@/components/Capabilities";
 import { Approach } from "@/components/Approach";
 import { Cursor } from "@/components/Cursor";
+import { Quake } from "@/components/Quake";
 
 export default function Home() {
   return (
@@ -22,23 +23,25 @@ export default function Home() {
       <Preloader />
       <SmoothScroll />
 
-      {/* Immersive 3D world — starfield + engine core + drifting shards behind everything. */}
+      {/* Immersive 3D world — starfield + engine core + terrain behind everything. */}
       <Scene3DMount />
 
-      <ScrollProgress />
-      <Nav />
-      <Hero />
-      <Marquee />
-      <main>
-        <About />
-        <Capabilities />
-        <Experience />
-        <Projects />
-        <Approach />
-        <Skills />
-        <Contact />
-      </main>
-      <Footer />
+      <Quake>
+        <ScrollProgress />
+        <Nav />
+        <Hero />
+        <Marquee />
+        <main>
+          <About />
+          <Capabilities />
+          <Experience />
+          <Projects />
+          <Approach />
+          <Skills />
+          <Contact />
+        </main>
+        <Footer />
+      </Quake>
     </>
   );
 }

@@ -4,7 +4,14 @@ import { useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Stars, Float } from "@react-three/drei";
 import { useReducedMotion } from "framer-motion";
-import { IcosahedronGeometry, Vector3, type BufferGeometry, type Group, type Mesh } from "three";
+import {
+  IcosahedronGeometry,
+  PlaneGeometry,
+  Vector3,
+  type BufferGeometry,
+  type Group,
+  type Mesh,
+} from "three";
 
 const AMBER = "#f4b860";
 const TEAL = "#5ec8c2";
@@ -41,6 +48,36 @@ function Core() {
 }
 
 const easeOut = (p: number) => 1 - (1 - p) * (1 - p);
+
+/** Low-poly terrain receding into the fog — the "land" the asteroid hurtles toward. */
+function Terrain() {
+  const geo = useMemo(() => {
+    const g = new PlaneGeometry(140, 100, 64, 48);
+    const p = g.attributes.position;
+    const v = new Vector3();
+    for (let i = 0; i < p.count; i++) {
+      v.fromBufferAttribute(p, i);
+      const h =
+        Math.sin(v.x * 0.16) * Math.cos(v.y * 0.15) * 2.4 +
+        Math.sin(v.x * 0.48 + v.y * 0.4) * 1.0 +
+        Math.sin(v.y * 0.9 + v.x * 0.3) * 0.5;
+      p.setZ(i, h);
+    }
+    g.computeVertexNormals();
+    return g;
+  }, []);
+
+  return (
+    <group position={[0, -6.5, -22]} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh geometry={geo}>
+        <meshStandardMaterial color="#0b0f15" roughness={1} metalness={0} flatShading />
+      </mesh>
+      <mesh geometry={geo}>
+        <meshBasicMaterial color={TEAL} wireframe transparent opacity={0.1} />
+      </mesh>
+    </group>
+  );
+}
 
 /** A detailed sphere whose vertices are pushed around by layered noise — an
  *  irregular, lumpy rock rather than a clean polyhedron. Flat-shaded → facets. */
@@ -142,7 +179,9 @@ function Asteroid({ shake }: { shake: React.MutableRefObject<number> }) {
         st.phase = "wait";
         st.t = 0;
         st.delay = 9 + Math.random() * 8; // breather before the next one
-        shake.current = 0.85;
+        shake.current = 1.1; // earthquake rumble
+        // tell the DOM to tremble too
+        if (typeof window !== "undefined") window.dispatchEvent(new Event("quake"));
       }
     }
   });
@@ -184,7 +223,7 @@ function Rig({
     state.camera.position.y = b.y + (Math.random() - 0.5) * sh;
     state.camera.position.z = b.z;
     state.camera.lookAt(0, 0, 0);
-    shake.current = sh > 0.002 ? sh * 0.86 : 0; // decay
+    shake.current = sh > 0.002 ? sh * 0.9 : 0; // slower decay = longer rumble
   });
   return null;
 }
@@ -225,6 +264,8 @@ export default function Scene3D() {
       <pointLight position={[-6, -3, 2]} intensity={55} color={TEAL} />
 
       <Stars radius={70} depth={45} count={2200} factor={3} saturation={0} fade speed={0.5} />
+
+      <Terrain />
 
       <Float speed={1.2} rotationIntensity={0.4} floatIntensity={0.8}>
         <Core />
