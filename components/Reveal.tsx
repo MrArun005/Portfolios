@@ -13,23 +13,24 @@ export function Reveal({
   children,
   className,
   delay = 0,
-  y = 18,
   as = "div",
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
-  y?: number;
   as?: "div" | "section" | "header" | "li" | "article" | "span" | "p";
 }) {
   const reduce = useReducedMotion();
   const MotionTag = motion[as] as typeof motion.div;
 
+  // Opacity-only fade (no transform): a lingering `transform` creates a
+  // stacking context that isolates child `mix-blend-mode` from the fixed 3D
+  // canvas behind the page. Fading without it keeps the per-pixel blend alive.
   return (
     <MotionTag
       className={className}
-      initial={reduce ? false : { opacity: 0, y }}
-      whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
+      initial={reduce ? false : { opacity: 0 }}
+      whileInView={reduce ? undefined : { opacity: 1 }}
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}
       transition={{ duration: 0.7, ease: EASE, delay }}
     >
