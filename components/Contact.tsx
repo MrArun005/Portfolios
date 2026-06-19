@@ -4,6 +4,7 @@ import { contact, meta } from "@/lib/content";
 import { Section } from "./Section";
 import { Reveal } from "./Reveal";
 import { Tilt3D } from "./Tilt3D";
+import { FlipText } from "./FlipText";
 
 export function Contact() {
   return (
@@ -21,8 +22,8 @@ export function Contact() {
             aria-hidden
             className="pointer-events-none absolute -bottom-20 left-1/4 h-64 w-64 rounded-full bg-teal/15 blur-[90px]"
           />
-          <h2 className="depth-2 relative font-display text-[clamp(1.9rem,5vw,2.9rem)] font-semibold tracking-[-0.02em]">
-            {contact.heading}
+          <h2 className="group depth-2 relative font-display text-[clamp(1.9rem,5vw,2.9rem)] font-semibold tracking-[-0.02em]">
+            <FlipText a={contact.heading} b="ok, just hire me already" />
           </h2>
           <p className="depth-1 my-3.5 max-w-[50ch] text-muted">{contact.body}</p>
           <div className="depth-1 flex flex-wrap gap-3">

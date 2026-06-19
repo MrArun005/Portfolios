@@ -10,10 +10,10 @@ export function Projects() {
   return (
     <Section id="projects">
       <Reveal>
-        <Eyebrow index={3}>projects</Eyebrow>
+        <Eyebrow index={4}>projects</Eyebrow>
       </Reveal>
       <Reveal delay={0.05}>
-        <SectionTitle>
+        <SectionTitle alt="the receipts">
           Things I&apos;ve <span className="text-amber">built</span>
         </SectionTitle>
       </Reveal>

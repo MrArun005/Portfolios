@@ -39,7 +39,7 @@ export function MagneticButton({
   }
 
   const base =
-    "inline-flex items-center justify-center gap-[0.6ch] rounded-[9px] px-5 py-2.5 font-mono text-[0.88rem] transition-colors w-full sm:w-auto";
+    "group inline-flex items-center justify-center gap-[0.6ch] rounded-[9px] px-5 py-2.5 font-mono text-[0.88rem] transition-colors w-full sm:w-auto";
   const skin = primary
     ? "border border-amber bg-amber font-semibold text-[#1a1206] hover:bg-[#f6c47e]"
     : "border border-line text-ink hover:border-muted";

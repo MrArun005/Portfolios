@@ -11,3 +11,4 @@ next-env.d.ts
 # local tooling / non-project
 .claude/
 pnpm-lock.yaml
+.vercel

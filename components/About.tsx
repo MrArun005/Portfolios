@@ -14,7 +14,7 @@ export function About() {
         <Eyebrow index={1}>about</Eyebrow>
       </Reveal>
       <Reveal delay={0.05}>
-        <SectionTitle>
+        <SectionTitle alt="the human bits">
           Who <span className="text-amber">I am</span>
         </SectionTitle>
       </Reveal>

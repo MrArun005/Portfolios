@@ -10,10 +10,10 @@ export function Skills() {
   return (
     <Section id="skills">
       <Reveal>
-        <Eyebrow index={4}>skills</Eyebrow>
+        <Eyebrow index={6}>skills</Eyebrow>
       </Reveal>
       <Reveal delay={0.05}>
-        <SectionTitle>
+        <SectionTitle alt="the arsenal">
           The <span className="text-amber">toolkit</span>
         </SectionTitle>
       </Reveal>

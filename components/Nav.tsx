@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { meta, nav } from "@/lib/content";
+import { FlipText } from "./FlipText";
 
 export function Nav() {
   const reduce = useReducedMotion();
@@ -50,11 +51,11 @@ export function Nav() {
             <a
               key={item.id}
               href={`#${item.id}`}
-              className={`relative font-mono text-[0.82rem] transition-colors hover:text-ink ${
+              className={`group relative font-mono text-[0.82rem] transition-colors hover:text-ink ${
                 active === item.id ? "text-ink" : "text-muted"
               }`}
             >
-              {item.label}
+              <FlipText a={item.label} b={item.alt} />
               {active === item.id && (
                 <motion.span
                   layoutId="nav-active"
@@ -70,15 +71,15 @@ export function Nav() {
             href={meta.resume}
             target="_blank"
             rel="noopener"
-            className="font-mono text-[0.82rem] text-muted transition-colors hover:text-ink"
+            className="group font-mono text-[0.82rem] text-muted transition-colors hover:text-ink"
           >
-            résumé
+            <FlipText a="résumé" b="the receipts" />
           </a>
           <a
             href={`mailto:${meta.email}`}
-            className="rounded-lg border border-line px-3.5 py-1.5 font-mono text-[0.82rem] text-amber transition-colors hover:border-amber hover:bg-amber-soft"
+            className="group rounded-lg border border-line px-3.5 py-1.5 font-mono text-[0.82rem] text-amber transition-colors hover:border-amber hover:bg-amber-soft"
           >
-            say hello →
+            <FlipText a="say hello →" b="let's talk 👀" />
           </a>
         </div>
 

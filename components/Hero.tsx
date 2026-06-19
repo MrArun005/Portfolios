@@ -1,37 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import dynamic from "next/dynamic";
-import { motion, useInView, useReducedMotion, useScroll, useSpring, useTransform, useMotionValue } from "framer-motion";
+import { useRef } from "react";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform, useMotionValue } from "framer-motion";
 import { hero, meta } from "@/lib/content";
 import { ScrambleText } from "./ScrambleText";
 import { Typewriter } from "./Typewriter";
 import { MagneticButton } from "./MagneticButton";
 import { RotatingRole } from "./RotatingRole";
 import { RotatingTagline } from "./RotatingTagline";
+import { FlipText } from "./FlipText";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-
-// WebGL is heavy: client-only, code-split, and only mounted on large screens.
-const EngineCore = dynamic(() => import("./EngineCore"), { ssr: false });
 
 export function Hero() {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
-
-  // Stop the WebGL scene entirely once the hero scrolls out of view (saves GPU).
-  const heroInView = useInView(ref, { amount: 0.05 });
-
-  // Only render the 3D core on large, motion-OK screens (skip on mobile + reduced motion).
-  const [show3D, setShow3D] = useState(false);
-  useEffect(() => {
-    if (reduce) return;
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const update = () => setShow3D(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, [reduce]);
 
   // Mouse-parallax for the aurora only — one reactive backdrop layer, not two.
   const mx = useMotionValue(0);
@@ -96,22 +79,12 @@ export function Hero() {
         />
       </motion.div>
 
-      {/* 3D engine core — contained to the right, behind the content rail. */}
-      {show3D && heroInView && (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute right-0 top-0 z-0 hidden h-full w-[40%] lg:block"
-        >
-          <EngineCore />
-        </div>
-      )}
-
       <motion.div
         className="wrap relative z-10"
         style={reduce ? undefined : { y: contentScrollY }}
       >
        <motion.div
-        className="max-w-[640px] lg:max-w-[48%]"
+        className="max-w-[720px] lg:max-w-[85%]"
         variants={reduce ? undefined : container}
         initial={reduce ? false : "hidden"}
         animate={reduce ? false : "show"}
@@ -144,9 +117,16 @@ export function Hero() {
           })()}
         </motion.span>
 
+        <motion.span
+          variants={reduce ? undefined : item}
+          className="mb-3 block font-mono text-[0.8rem] uppercase tracking-[0.22em] text-teal"
+        >
+          {hero.kicker}
+        </motion.span>
+
         <motion.h1
           variants={reduce ? undefined : item}
-          className="font-display text-[clamp(2.6rem,7vw,4.6rem)] font-bold leading-[1.02] tracking-[-0.03em]"
+          className="font-display text-[clamp(2.7rem,7.5vw,5.3rem)] font-bold leading-[1.02] tracking-[-0.03em]"
         >
           {hero.headline.map((part, i) =>
             part.accent ? (
@@ -177,16 +157,16 @@ export function Hero() {
 
         <motion.div variants={reduce ? undefined : item} className="mt-10 grid grid-cols-2 gap-3.5 sm:flex sm:flex-wrap">
           <MagneticButton href="#projects" primary>
-            View the work
+            <FlipText a="View the work" b="show me the goods" />
           </MagneticButton>
           <MagneticButton href={meta.resume} external>
-            <FileIcon /> Résumé
+            <FileIcon /> <FlipText a="Résumé" b="the receipts" />
           </MagneticButton>
           <MagneticButton href={`mailto:${meta.email}`}>
-            <MailIcon /> Email
+            <MailIcon /> <FlipText a="Email" b="slide in" />
           </MagneticButton>
           <MagneticButton href={meta.github} external>
-            <GithubIcon /> GitHub
+            <GithubIcon /> <FlipText a="GitHub" b="the code" />
           </MagneticButton>
         </motion.div>
        </motion.div>

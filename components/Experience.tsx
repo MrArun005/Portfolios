@@ -9,10 +9,10 @@ export function Experience() {
   return (
     <Section id="experience">
       <Reveal>
-        <Eyebrow index={2}>experience</Eyebrow>
+        <Eyebrow index={3}>experience</Eyebrow>
       </Reveal>
       <Reveal delay={0.05}>
-        <SectionTitle>
+        <SectionTitle alt="the grind">
           Where I&apos;ve <span className="text-amber">shipped</span>
         </SectionTitle>
       </Reveal>

@@ -18,11 +18,11 @@ export const meta = {
 } as const;
 
 export const nav = [
-  { id: "about", label: "about" },
-  { id: "experience", label: "experience" },
-  { id: "projects", label: "projects" },
-  { id: "skills", label: "skills" },
-  { id: "contact", label: "contact" },
+  { id: "about", label: "about", alt: "the lore" },
+  { id: "experience", label: "experience", alt: "the grind" },
+  { id: "projects", label: "projects", alt: "the goods" },
+  { id: "skills", label: "skills", alt: "the arsenal" },
+  { id: "contact", label: "contact", alt: "slide in 👀" },
 ] as const;
 
 export type Span = { text: string; bold?: boolean };
@@ -35,13 +35,14 @@ export type Stat = {
   decimals?: number;
 };
 
-export const hero: { status: string; headline: HeadlinePart[]; lede: Span[] } = {
+export const hero: { status: string; kicker: string; headline: HeadlinePart[]; lede: Span[] } = {
   status: "available for new roles · Bengaluru, India",
   // headline rendered as two lines; `accent` word gets the amber treatment
+  kicker: "the throughline",
   headline: [
     { text: "I build the " },
     { text: "engines", accent: true },
-    { text: " and agents others run." },
+    { text: " other people configure without code." },
   ],
   lede: [
     { text: "4+ years", bold: true },
@@ -197,6 +198,44 @@ export const skills = [
   {
     group: "auth, security & qa",
     items: ["JWT", "Cerbos (RBAC)", "Firebase Auth", "Clerk", "VAPT", "SIT · Smoke · UAT", "Automated Testing"],
+  },
+] as const;
+
+export const capabilities = [
+  {
+    title: "AI agents & LLM features",
+    body: "Custom agents and the system prompts behind them — multi-step tool-calling, self-correcting planner/executor loops, structured-output guardrails, and evals. Claude & Gemini wired into core flows, not bolt-on demos.",
+  },
+  {
+    title: "Platform & backend architecture",
+    body: "Distributed microservices with clean data modeling and the patterns that keep them reliable as they scale — APIs, async jobs, caching, database-per-tenant isolation.",
+  },
+  {
+    title: "Configurable engines",
+    body: "Rule engines and no-code platforms teams configure without a redeploy — promotions, country-agnostic payroll, workflow builders. Adding a case is config, not code.",
+  },
+  {
+    title: "Reliability & quality",
+    body: "99.5% availability under volume, ~2,600 automated tests, end-to-end QA (SIT · smoke · UAT), and calm incident response across distributed services.",
+  },
+] as const;
+
+export const principles = [
+  {
+    title: "Start from the problem",
+    body: "I work straight from PRDs and real customer pain, not a wishlist of features. The first question is always what the user actually needs to get done.",
+  },
+  {
+    title: "Own the whole thing",
+    body: "Architecture, reliability, scaling, QA, releases — I take responsibility for the system that ships, not just the ticket assigned to me.",
+  },
+  {
+    title: "Build engines, not screens",
+    body: "I design for configuration. The win is a system other people can extend and operate without booking time on an engineer's calendar.",
+  },
+  {
+    title: "Verify before you claim",
+    body: "Automated tests, thorough QA, and incident-readiness. 'Done' means it survives production — measured, not assumed.",
   },
 ] as const;
 
