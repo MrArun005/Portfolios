@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { Suspense, useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Stars, Float } from "@react-three/drei";
+import { Stars, Float, useTexture } from "@react-three/drei";
 import { useReducedMotion } from "framer-motion";
 import {
   IcosahedronGeometry,
   PlaneGeometry,
   Vector3,
+  RepeatWrapping,
   type BufferGeometry,
   type Group,
   type Mesh,
@@ -85,7 +86,7 @@ function ridgedFbm(x: number, y: number): number {
   return sum / norm;
 }
 
-/** A real mountain range receding into the fog — the "land". */
+/** A real mountain range receding into the fog — the "land" with realistic texture. */
 function Terrain() {
   const geo = useMemo(() => {
     const g = new PlaneGeometry(180, 140, 140, 110);
@@ -96,29 +97,42 @@ function Terrain() {
       // base ridged peaks + a second rotated octave for natural variation
       let h = ridgedFbm(v.x * 0.055 + 12, v.y * 0.055 + 7);
       h += 0.35 * ridgedFbm(v.x * 0.13 - 5, v.y * 0.13 + 9);
-      h = Math.pow(h, 1.6) * 16; // tall, sharp
+      h = Math.pow(h, 1.7) * 9; // a low range that sits BELOW the floating core
       p.setZ(i, h);
     }
     g.computeVertexNormals();
     return g;
   }, []);
 
+  const rockTexture = useTexture("/assets/rock_mountain.png");
+  useMemo(() => {
+    rockTexture.wrapS = RepeatWrapping;
+    rockTexture.wrapT = RepeatWrapping;
+    rockTexture.repeat.set(12, 12);
+  }, [rockTexture]);
+
   return (
-    <group position={[0, -7, -26]} rotation={[-Math.PI / 2, 0, 0]}>
+    <group position={[0, -11, -30]} rotation={[-Math.PI / 2, 0, 0]}>
       <mesh geometry={geo}>
-        <meshStandardMaterial color="#0c1118" roughness={1} metalness={0} flatShading />
+        <meshStandardMaterial
+          map={rockTexture}
+          bumpMap={rockTexture}
+          bumpScale={0.16}
+          roughness={0.9}
+          metalness={0.1}
+        />
       </mesh>
       <mesh geometry={geo}>
-        <meshBasicMaterial color={TEAL} wireframe transparent opacity={0.07} />
+        <meshBasicMaterial color={TEAL} wireframe transparent opacity={0.03} />
       </mesh>
     </group>
   );
 }
 
 /** A detailed sphere whose vertices are pushed around by layered noise — an
- *  irregular, lumpy rock rather than a clean polyhedron. Flat-shaded → facets. */
+ *  irregular, lumpy rock rather than a clean polyhedron. Subdivided more for details. */
 function makeAsteroidGeometry(): BufferGeometry {
-  const geo = new IcosahedronGeometry(1, 5);
+  const geo = new IcosahedronGeometry(1, 6); // increased detail
   const pos = geo.attributes.position;
   const v = new Vector3();
   for (let i = 0; i < pos.count; i++) {
@@ -137,16 +151,34 @@ function makeAsteroidGeometry(): BufferGeometry {
   return geo;
 }
 
+/** Cinematic background skybox/plane with the custom generated starry space image. */
+function SkyBackground() {
+  const texture = useTexture("/sky.jpg");
+  return (
+    <mesh position={[0, 5, -58]}>
+      <planeGeometry args={[150, 112]} />
+      <meshBasicMaterial map={texture} depthWrite={false} fog={false} />
+    </mesh>
+  );
+}
+
 /**
- * Choreographed jump-scare asteroid:
+ * Choreographed jump-scare asteroid, upgraded with realistic texture and lighting:
  *   reveal  — drifts out of the fog into clear view so you notice it
- *   dance   — hovers and wobbles in place for a beat ("wait... what's that?")
+ *   dance   — hovers and wobbles in place for a beat
  *   strike  — suddenly lunges straight at your face, ballooning, + camera shake
- * Then it resets and waits before doing it again.
  */
 function Asteroid({ shake }: { shake: React.MutableRefObject<number> }) {
   const ref = useRef<Mesh>(null);
   const geometry = useMemo(() => makeAsteroidGeometry(), []);
+  
+  const texture = useTexture("/assets/asteroid_surface.png");
+  useMemo(() => {
+    texture.wrapS = RepeatWrapping;
+    texture.wrapT = RepeatWrapping;
+    texture.repeat.set(2, 2);
+  }, [texture]);
+
   const s = useRef({
     phase: "wait" as "wait" | "reveal" | "dance" | "strike",
     t: 0,
@@ -176,8 +208,9 @@ function Asteroid({ shake }: { shake: React.MutableRefObject<number> }) {
     } else if (st.phase === "reveal") {
       const p = Math.min(st.t / 1.1, 1);
       const e = easeOut(p);
-      m.position.set(st.rx * e, st.ry * e, -55 + (-6 - -55) * e); // far → -6, in view
-      m.scale.setScalar(0.4 + e * 1.1);
+      // emerges from deep behind the range, up in the sky — then approaches
+      m.position.set(st.rx * e, (st.ry + 2.5) * e, -55 + (-18 - -55) * e);
+      m.scale.setScalar(0.5 + e * 1.5);
       m.rotation.x += dt * 1.4;
       m.rotation.y += dt * 1.7;
       if (p >= 1) {
@@ -189,11 +222,11 @@ function Asteroid({ shake }: { shake: React.MutableRefObject<number> }) {
       const k = st.t / dur;
       // hover + wobble, creeping a touch closer (menacing) before it pounces
       m.position.set(
-        st.rx + Math.sin(st.t * 3) * 0.7,
-        st.ry + Math.sin(st.t * 4.3 + 1) * 0.5,
-        -6 + k * 2,
+        st.rx + Math.sin(st.t * 3) * 0.8,
+        st.ry + 2.5 + Math.sin(st.t * 4.3 + 1) * 0.6,
+        -18 + k * 4,
       );
-      m.scale.setScalar(1.5 + k * 0.4);
+      m.scale.setScalar(1.7 + k * 0.5);
       m.rotation.x += dt * 2.4;
       m.rotation.y += dt * 2.8;
       if (st.t >= dur) {
@@ -225,14 +258,78 @@ function Asteroid({ shake }: { shake: React.MutableRefObject<number> }) {
   return (
     <mesh ref={ref} geometry={geometry}>
       <meshStandardMaterial
-        color="#7a6a52"
-        emissive="#d98a3a"
-        emissiveIntensity={0.4}
-        roughness={0.95}
-        metalness={0.1}
-        flatShading
+        map={texture}
+        bumpMap={texture}
+        bumpScale={0.15}
+        color="#8c8273"
+        emissive="#f4b860"
+        emissiveIntensity={0.25}
+        roughness={0.9}
+        metalness={0.2}
       />
     </mesh>
+  );
+}
+
+/** Background asteroid debris field to add scale and realistic depth. */
+function BackgroundDebris() {
+  const texture = useTexture("/assets/asteroid_surface.png");
+  const geometry = useMemo(() => makeAsteroidGeometry(), []);
+
+  // Generate 25 debris pieces with random position, scale, rotation, and rotation speed
+  const items = useMemo(() => {
+    const arr = [];
+    for (let i = 0; i < 25; i++) {
+      const x = (Math.random() - 0.5) * 65;
+      const y = (Math.random() - 0.5) * 35 + 4;
+      const z = -20 - Math.random() * 40; // background depth
+      const scale = 0.15 + Math.random() * 0.75;
+      const rx = Math.random() * Math.PI;
+      const ry = Math.random() * Math.PI;
+      const rz = Math.random() * Math.PI;
+      const speedX = (Math.random() - 0.5) * 0.2;
+      const speedY = (Math.random() - 0.5) * 0.2;
+      arr.push({ x, y, z, scale, rx, ry, rz, speedX, speedY });
+    }
+    return arr;
+  }, []);
+
+  const groupRef = useRef<Group>(null);
+
+  useFrame((_, dt) => {
+    if (!groupRef.current) return;
+    const children = groupRef.current.children;
+    for (let i = 0; i < children.length; i++) {
+      const child = children[i] as Mesh;
+      const info = items[i];
+      if (child && info) {
+        child.rotation.x += dt * info.speedX;
+        child.rotation.y += dt * info.speedY;
+      }
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      {items.map((item, idx) => (
+        <mesh
+          key={idx}
+          geometry={geometry}
+          position={[item.x, item.y, item.z]}
+          scale={[item.scale, item.scale, item.scale]}
+          rotation={[item.rx, item.ry, item.rz]}
+        >
+          <meshStandardMaterial
+            map={texture}
+            bumpMap={texture}
+            bumpScale={0.12}
+            color="#5a5246"
+            roughness={0.95}
+            metalness={0.1}
+          />
+        </mesh>
+      ))}
+    </group>
   );
 }
 
@@ -294,20 +391,22 @@ export default function Scene3D() {
       gl={{ antialias: true, powerPreference: "high-performance" }}
     >
       <color attach="background" args={["#0d1117"]} />
-      <fog attach="fog" args={["#0d1117", 7, 26]} />
-      <ambientLight intensity={0.5} />
-      <pointLight position={[5, 3, 5]} intensity={80} color={AMBER} />
-      <pointLight position={[-6, -3, 2]} intensity={55} color={TEAL} />
+      <fog attach="fog" args={["#0d1117", 7, 28]} />
+      <ambientLight intensity={0.4} />
+      <pointLight position={[5, 3, 5]} intensity={90} color={AMBER} />
+      <pointLight position={[-6, -3, 2]} intensity={65} color={TEAL} />
 
       <Stars radius={70} depth={45} count={2200} factor={3} saturation={0} fade speed={0.5} />
 
-      <Terrain />
-
-      <Float speed={1.2} rotationIntensity={0.4} floatIntensity={0.8}>
-        <Core />
-      </Float>
-
-      <Asteroid shake={shake} />
+      <Suspense fallback={null}>
+        <SkyBackground />
+        <Terrain />
+        <Float speed={1.2} rotationIntensity={0.4} floatIntensity={0.8}>
+          <Core />
+        </Float>
+        <Asteroid shake={shake} />
+        <BackgroundDebris />
+      </Suspense>
 
       <Rig scroll={scroll} mouse={mouse} shake={shake} />
     </Canvas>
