@@ -34,3 +34,7 @@ Framer Motion drives the hero load sequence, scroll reveals, count-up stats, pro
 - **Vercel:** `npx vercel` (zero config — detects Next.js).
 
 Accessible: keyboard focus rings, reduced-motion respected, responsive down to mobile.
+
+## Credits
+
+- Asteroid 3D model: "Asteroid" by J-Toastie via [Poly Pizza](https://poly.pizza/m/YS1jpm3mNr) — licensed CC BY 3.0.

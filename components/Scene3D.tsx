@@ -15,7 +15,7 @@ import {
   type Group,
   type Mesh,
 } from "three";
-import { RealAsteroid } from "./RealAsteroid";
+import { GltfAsteroid } from "./GltfAsteroid";
 
 const AMBER = "#f4b860";
 const TEAL = "#5ec8c2";
@@ -340,7 +340,7 @@ export default function Scene3D() {
         <Float speed={1.2} rotationIntensity={0.4} floatIntensity={0.8}>
           <Core />
         </Float>
-        <RealAsteroid shake={shake} flash={flash} />
+        <GltfAsteroid shake={shake} flash={flash} />
         <BackgroundDebris />
         <FlashLight flash={flash} />
       </Suspense>
