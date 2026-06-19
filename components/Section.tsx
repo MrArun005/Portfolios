@@ -14,7 +14,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={`wrap border-t border-line-soft py-[clamp(64px,11vh,128px)] ${className}`}
+      className={`wrap border-t border-line-soft py-[clamp(64px,11vh,128px)] [text-shadow:0_2px_24px_rgba(5,7,12,0.92),0_1px_4px_rgba(5,7,12,0.9)] ${className}`}
     >
       {children}
     </section>
