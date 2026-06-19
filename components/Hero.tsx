@@ -26,7 +26,6 @@ export function Hero() {
   // (No opacity fade — the title must stay solid the whole time it's on screen.)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const bgScrollY = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const contentScrollY = useTransform(scrollYProgress, [0, 1], [0, -48]);
 
   function onMove(e: React.MouseEvent<HTMLElement>) {
     if (reduce) return;
@@ -79,10 +78,7 @@ export function Hero() {
         />
       </motion.div>
 
-      <motion.div
-        className="wrap relative z-10"
-        style={reduce ? undefined : { y: contentScrollY }}
-      >
+      <motion.div className="wrap relative">
        <motion.div
         className="max-w-[720px] lg:max-w-[85%]"
         variants={reduce ? undefined : container}
@@ -126,7 +122,7 @@ export function Hero() {
 
         <motion.h1
           variants={reduce ? undefined : item}
-          className="font-display text-[clamp(2.7rem,7.5vw,5.3rem)] font-bold leading-[1.02] tracking-[-0.03em]"
+          className="font-display text-[clamp(2.7rem,7.5vw,5.3rem)] font-bold leading-[1.02] tracking-[-0.03em] mix-blend-difference"
         >
           {hero.headline.map((part, i) =>
             part.accent ? (
