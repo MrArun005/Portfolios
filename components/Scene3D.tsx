@@ -49,18 +49,54 @@ function Core() {
 
 const easeOut = (p: number) => 1 - (1 - p) * (1 - p);
 
-/** Low-poly terrain receding into the fog — the "land" the asteroid hurtles toward. */
+// --- procedural mountain heightfield (ridged fractal noise) ---
+function hash2(x: number, y: number): number {
+  const n = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
+  return n - Math.floor(n);
+}
+function valueNoise(x: number, y: number): number {
+  const xi = Math.floor(x);
+  const yi = Math.floor(y);
+  const xf = x - xi;
+  const yf = y - yi;
+  const u = xf * xf * (3 - 2 * xf);
+  const v = yf * yf * (3 - 2 * yf);
+  const a = hash2(xi, yi);
+  const b = hash2(xi + 1, yi);
+  const c = hash2(xi, yi + 1);
+  const d = hash2(xi + 1, yi + 1);
+  return a * (1 - u) * (1 - v) + b * u * (1 - v) + c * (1 - u) * v + d * u * v;
+}
+/** Ridged fractal Brownian motion → sharp mountain ridges. Returns ~0..1. */
+function ridgedFbm(x: number, y: number): number {
+  let amp = 0.5;
+  let freq = 1;
+  let sum = 0;
+  let norm = 0;
+  for (let o = 0; o < 5; o++) {
+    let n = valueNoise(x * freq, y * freq);
+    n = 1 - Math.abs(n * 2 - 1); // fold into ridges
+    n = n * n; // sharpen peaks
+    sum += n * amp;
+    norm += amp;
+    amp *= 0.5;
+    freq *= 2.05;
+  }
+  return sum / norm;
+}
+
+/** A real mountain range receding into the fog — the "land". */
 function Terrain() {
   const geo = useMemo(() => {
-    const g = new PlaneGeometry(140, 100, 64, 48);
+    const g = new PlaneGeometry(180, 140, 140, 110);
     const p = g.attributes.position;
     const v = new Vector3();
     for (let i = 0; i < p.count; i++) {
       v.fromBufferAttribute(p, i);
-      const h =
-        Math.sin(v.x * 0.16) * Math.cos(v.y * 0.15) * 2.4 +
-        Math.sin(v.x * 0.48 + v.y * 0.4) * 1.0 +
-        Math.sin(v.y * 0.9 + v.x * 0.3) * 0.5;
+      // base ridged peaks + a second rotated octave for natural variation
+      let h = ridgedFbm(v.x * 0.055 + 12, v.y * 0.055 + 7);
+      h += 0.35 * ridgedFbm(v.x * 0.13 - 5, v.y * 0.13 + 9);
+      h = Math.pow(h, 1.6) * 16; // tall, sharp
       p.setZ(i, h);
     }
     g.computeVertexNormals();
@@ -68,12 +104,12 @@ function Terrain() {
   }, []);
 
   return (
-    <group position={[0, -6.5, -22]} rotation={[-Math.PI / 2, 0, 0]}>
+    <group position={[0, -7, -26]} rotation={[-Math.PI / 2, 0, 0]}>
       <mesh geometry={geo}>
-        <meshStandardMaterial color="#0b0f15" roughness={1} metalness={0} flatShading />
+        <meshStandardMaterial color="#0c1118" roughness={1} metalness={0} flatShading />
       </mesh>
       <mesh geometry={geo}>
-        <meshBasicMaterial color={TEAL} wireframe transparent opacity={0.1} />
+        <meshBasicMaterial color={TEAL} wireframe transparent opacity={0.07} />
       </mesh>
     </group>
   );
