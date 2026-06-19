@@ -30,6 +30,7 @@ export function Capabilities() {
               <p className="mt-2.5 max-w-[48ch] text-[clamp(1rem,1.4vw,1.12rem)] leading-relaxed text-muted">
                 {c.body}
               </p>
+              <p className="mt-3 font-mono text-[0.74rem] text-faint">{c.tags.join("  ·  ")}</p>
             </div>
           </Reveal>
         ))}

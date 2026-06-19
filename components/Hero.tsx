@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useSpring, useTransform, useMotionValue } from "framer-motion";
-import { hero, meta } from "@/lib/content";
+import { hero, meta, proof } from "@/lib/content";
 import { ScrambleText } from "./ScrambleText";
 import { Typewriter } from "./Typewriter";
 import { MagneticButton } from "./MagneticButton";
@@ -151,7 +151,19 @@ export function Hero() {
           ))}
         </motion.p>
 
-        <motion.div variants={reduce ? undefined : item} className="mt-10 grid grid-cols-2 gap-3.5 sm:flex sm:flex-wrap">
+        <motion.ul
+          variants={reduce ? undefined : item}
+          className="mt-8 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[0.78rem] text-muted mix-blend-difference"
+        >
+          {proof.map((p) => (
+            <li key={p} className="flex items-center gap-2">
+              <span aria-hidden className="text-teal">▹</span>
+              {p}
+            </li>
+          ))}
+        </motion.ul>
+
+        <motion.div variants={reduce ? undefined : item} className="mt-9 grid grid-cols-2 gap-3.5 sm:flex sm:flex-wrap">
           <MagneticButton href="#projects" primary>
             <FlipText a="View the work" b="show me the goods" />
           </MagneticButton>

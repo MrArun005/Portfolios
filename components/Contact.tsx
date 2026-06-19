@@ -25,7 +25,10 @@ export function Contact() {
           <h2 className="group depth-2 relative font-display text-[clamp(1.9rem,5vw,2.9rem)] font-semibold tracking-[-0.02em]">
             <FlipText a={contact.heading} b="ok, just hire me already" />
           </h2>
-          <p className="depth-1 my-3.5 max-w-[50ch] text-muted">{contact.body}</p>
+          <p className="depth-1 mb-2 mt-3.5 max-w-[50ch] text-muted">{contact.body}</p>
+          <p className="depth-1 mb-4 max-w-[56ch] font-mono text-[0.8rem] leading-relaxed text-faint">
+            {contact.bestFit}
+          </p>
           <div className="depth-1 flex flex-wrap gap-3">
             <a
               href={`mailto:${meta.email}`}

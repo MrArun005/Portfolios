@@ -19,10 +19,19 @@ export const meta = {
 
 export const nav = [
   { id: "about", label: "about", alt: "the lore" },
+  { id: "capabilities", label: "capabilities", alt: "the craft" },
   { id: "experience", label: "experience", alt: "the grind" },
   { id: "projects", label: "projects", alt: "the goods" },
-  { id: "skills", label: "skills", alt: "the arsenal" },
   { id: "contact", label: "contact", alt: "slide in 👀" },
+] as const;
+
+// Compact credibility row under the hero copy — proof before prose.
+export const proof = [
+  "4+ yrs production engineering",
+  "2+ yrs LLM integration",
+  "99.5% availability at scale",
+  "~2,600 automated tests",
+  "Multi-tenant SaaS",
 ] as const;
 
 export type Span = { text: string; bold?: boolean };
@@ -76,6 +85,7 @@ export type Role = {
   where: string;
   role: string;
   company: string;
+  scope: string;
   points: string[];
   stack: string[];
   metrics: { value: string; label: string }[];
@@ -87,6 +97,7 @@ export const experience: Role[] = [
     where: "Bengaluru, India",
     role: "Senior Software Engineer",
     company: "Tecnotree Convergence",
+    scope: "Scope: architecture owner · production reliability · technical decisions",
     points: [
       "Owned architecture and design — patterns, reliability, scaling — of a rule-based Promotion Engine; the team's go-to for technical decisions, letting business teams launch telecom campaigns with zero redeployment.",
       "Led production incident response across distributed microservices, debugging and resolving failures while sustaining 99.5% availability under high transaction volume.",
@@ -106,6 +117,7 @@ export const experience: Role[] = [
     where: "Bengaluru, India",
     role: "Software Engineer",
     company: "Tecnotree Convergence",
+    scope: "Scope: backend feature delivery · microservices · performance",
     points: [
       "Built scalable, high-performance Node.js REST APIs for high-volume transaction processing, using async concurrency to keep latency low under load.",
       "Contributed to the microservices architecture and design, improving end-to-end throughput and reliability.",
@@ -227,18 +239,22 @@ export const capabilities = [
   {
     title: "AI agents & LLM features",
     body: "Custom agents and the system prompts behind them — multi-step tool-calling, self-correcting planner/executor loops, structured-output guardrails, and evals. Claude & Gemini wired into core flows, not bolt-on demos.",
+    tags: ["Tailorwright", "Free Resume Pro", "structured output", "evals"],
   },
   {
     title: "Platform & backend architecture",
     body: "Distributed microservices with clean data modeling and the patterns that keep them reliable as they scale — APIs, async jobs, caching, database-per-tenant isolation.",
+    tags: ["Folkgrove", "database-per-tenant", "Redis / BullMQ", "Cerbos"],
   },
   {
     title: "Configurable engines",
     body: "Rule engines and no-code platforms teams configure without a redeploy — promotions, country-agnostic payroll, workflow builders. Adding a case is config, not code.",
+    tags: ["promotion engine", "payroll rule packs", "workflow builder"],
   },
   {
     title: "Reliability & quality",
     body: "99.5% availability under volume, ~2,600 automated tests, end-to-end QA (SIT · smoke · UAT), and calm incident response across distributed services.",
+    tags: ["99.5% availability", "~2,600 tests", "SIT · smoke · UAT"],
   },
 ] as const;
 
@@ -264,4 +280,6 @@ export const principles = [
 export const contact = {
   heading: "Let's build something solid.",
   body: "Open to full-stack and AI-platform roles. The fastest way to reach me is email — I read everything.",
+  bestFit:
+    "Best fit: full-stack / platform roles involving backend architecture, AI agents, multi-tenant SaaS, rule engines, or reliability-heavy systems.",
 } as const;

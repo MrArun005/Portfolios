@@ -39,6 +39,7 @@ export function Experience() {
               <h3 className="font-display text-[1.25rem] font-semibold tracking-[-0.01em] mix-blend-difference">
                 {role.role} · <span className="text-amber">{role.company}</span>
               </h3>
+              <p className="mt-1 font-mono text-[0.76rem] text-teal/85 mix-blend-difference">{role.scope}</p>
 
               {/* bullets (left) + stack & metrics rail (right) fill the full width */}
               <div className="mt-4 grid gap-x-10 gap-y-6 lg:grid-cols-[1fr_260px]">
