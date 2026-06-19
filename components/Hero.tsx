@@ -84,7 +84,7 @@ export function Hero() {
         style={reduce ? undefined : { y: contentScrollY }}
       >
        <motion.div
-        className="max-w-[720px] lg:max-w-[85%]"
+        className="max-w-[720px] [text-shadow:0_2px_24px_rgba(5,7,12,0.92),0_1px_4px_rgba(5,7,12,0.9)] lg:max-w-[85%]"
         variants={reduce ? undefined : container}
         initial={reduce ? false : "hidden"}
         animate={reduce ? false : "show"}
