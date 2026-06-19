@@ -14,14 +14,12 @@ import { Marquee } from "@/components/Marquee";
 import { Capabilities } from "@/components/Capabilities";
 import { Approach } from "@/components/Approach";
 import { Cursor } from "@/components/Cursor";
-import { CoreContrast } from "@/components/CoreContrast";
 import { Quake } from "@/components/Quake";
 
 export default function Home() {
   return (
     <>
       <Cursor />
-      <CoreContrast />
       <Preloader />
       <SmoothScroll />
 

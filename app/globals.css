@@ -150,17 +150,6 @@ body::after {
   }
 }
 
-/* Text tagged [data-overlap] flips to a dark colour while it sits over the
-   bright 3D core (toggled by CoreContrast). Smooth so it doesn't pop. */
-[data-overlap] {
-  transition: color 0.25s ease, text-shadow 0.25s ease;
-}
-.over-core,
-.over-core * {
-  color: #0a0d12 !important;
-  text-shadow: 0 0 10px rgba(244, 184, 96, 0.35);
-}
-
 /* Hide the native cursor only while the custom cursor is mounted. */
 html.has-cursor,
 html.has-cursor * {

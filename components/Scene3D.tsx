@@ -21,10 +21,6 @@ const AMBER = "#f4b860";
 const TEAL = "#5ec8c2";
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
-// reusable temps for projecting the core to screen space (no per-frame alloc)
-const _c = new Vector3();
-const _e = new Vector3();
-
 /** The faceted engine core in its geodesic cage — the anchor of the scene. */
 function Core() {
   const spin = useRef<Group>(null);
@@ -247,19 +243,6 @@ function Rig({
     state.camera.position.y = b.y + (Math.random() - 0.5) * sh;
     state.camera.position.z = b.z;
     state.camera.lookAt(0, 0, 0);
-
-    // publish the core's on-screen circle so the DOM can flip overlapping text
-    _c.set(0, 0, 0).project(state.camera);
-    _e.set(1.8, 0, 0).project(state.camera);
-    const cx = (_c.x * 0.5 + 0.5) * window.innerWidth;
-    const cy = (-_c.y * 0.5 + 0.5) * window.innerHeight;
-    const ex = (_e.x * 0.5 + 0.5) * window.innerWidth;
-    const ey = (-_e.y * 0.5 + 0.5) * window.innerHeight;
-    (window as unknown as { __coreRect?: { cx: number; cy: number; r: number } }).__coreRect = {
-      cx,
-      cy,
-      r: Math.hypot(ex - cx, ey - cy),
-    };
     shake.current = sh > 0.002 ? sh * 0.9 : 0;
   });
   return null;

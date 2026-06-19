@@ -89,11 +89,11 @@ export function Hero() {
         initial={reduce ? false : "hidden"}
         animate={reduce ? false : "show"}
        >
-        <motion.div data-overlap variants={reduce ? undefined : item} className="mb-3">
+        <motion.div variants={reduce ? undefined : item} className="mb-3">
           <RotatingTagline />
         </motion.div>
 
-        <motion.div data-overlap variants={reduce ? undefined : item} className="mb-6">
+        <motion.div variants={reduce ? undefined : item} className="mb-6">
           <RotatingRole />
         </motion.div>
 
@@ -118,7 +118,6 @@ export function Hero() {
         </motion.span>
 
         <motion.span
-          data-overlap
           variants={reduce ? undefined : item}
           className="mb-3 block font-mono text-[0.8rem] uppercase tracking-[0.22em] text-teal"
         >
@@ -126,7 +125,6 @@ export function Hero() {
         </motion.span>
 
         <motion.h1
-          data-overlap
           variants={reduce ? undefined : item}
           className="font-display text-[clamp(2.7rem,7.5vw,5.3rem)] font-bold leading-[1.02] tracking-[-0.03em]"
         >
@@ -140,7 +138,6 @@ export function Hero() {
         </motion.h1>
 
         <motion.p
-          data-overlap
           variants={reduce ? undefined : item}
           className="mt-4 font-mono text-[clamp(0.92rem,2.2vw,1.05rem)] tracking-[-0.01em] text-teal"
         >
@@ -148,7 +145,6 @@ export function Hero() {
         </motion.p>
 
         <motion.p
-          data-overlap
           variants={reduce ? undefined : item}
           className="mt-6 max-w-[56ch] text-[clamp(1.02rem,2.4vw,1.2rem)] text-muted"
         >
