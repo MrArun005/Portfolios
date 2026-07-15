@@ -132,7 +132,7 @@ export const PROJECTS: Project[] = [
       "Custom AI agents and the system prompts behind them, shipped from one shared core in four forms — web app, Claude Code skill, subagent, and CLI. Multi-step tool-calling with a self-correcting planner/executor loop, a strict no-fabrication guardrail via structured-output schemas + retries (validated with evals), runs fully local and SSRF-hardened.",
     tags: ["Claude API", "Next.js", "TypeScript", "Node.js"],
     colorA: "#5ec8c2",
-    colorB: "#7c3aed",
+    colorB: "#f0abfc",
     link: "https://github.com/MrArun005/resume-tailor",
     linkLabel: "View on GitHub",
   },
@@ -156,7 +156,7 @@ export const PROJECTS: Project[] = [
     description:
       "A scalable promotion-management system on a microservices backend with a real-time rule engine, letting non-technical teams configure telecom campaigns with zero redeployment. Async, high-throughput rule evaluation tuned for low per-request latency under load.",
     tags: ["Node.js", "React", "Microservices", "REST APIs"],
-    colorA: "#4cc9f0",
+    colorA: "#f4b860",
     colorB: "#5ec8c2",
     link: null,
   },

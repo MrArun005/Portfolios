@@ -95,7 +95,7 @@ export default function HeroOverlay() {
             >
               {PROFILE.name}
             </span>
-            <span className="relative bg-gradient-to-b from-white from-40% via-[#e8f4ff] to-[#8fd8f8] bg-clip-text text-transparent drop-shadow-[0_2px_18px_rgba(94, 200, 194, 0.35)]">
+            <span className="relative bg-gradient-to-b from-white from-40% via-[#fdf3e0] to-[#7df0ea] bg-clip-text text-transparent drop-shadow-[0_2px_18px_rgba(94, 200, 194, 0.35)]">
               {PROFILE.name}
             </span>
           </motion.h1>
