@@ -1,29 +1,28 @@
-# Abhishek Badar
+# Arun Mallikarjuna
 
-> Software Development Engineer at Xeo Information Systems (Pune, India). Builds end-to-end web, mobile, and backend systems with React, Next.js, TypeScript, Laravel, and Flutter — plus AI in production (RAG with Pinecone, OCR workflows, automation). IIT Ropar AI Minor graduate.
+> Full-Stack & AI Platform Engineer in Bengaluru, India. Builds the engines and AI agents other people run — multi-tenant platforms, payroll engines, rule engines, and custom agent runtimes — with Node.js, NestJS, Next.js, TypeScript, and the Claude & Gemini APIs. 4+ years production engineering, 2+ years LLM integration.
 
-Abhishek designs and ships products across the full stack — web frontends, mobile apps, backends, and the automation between them — with a focus on simple, fast, maintainable systems built for real usage. The portfolio at abhishekbadar.com is an interactive 3D (WebGL) experience; the complete text content is mirrored in the files linked below for language models.
+Arun designs and owns backend architecture, reliability, and scaling for distributed microservices systems, and ships custom AI agents with the system prompts and evals behind them. The portfolio is an interactive 3D (WebGL) experience; the complete text content is mirrored in the files linked below for language models.
 
 ## Key pages
-- [Portfolio home](https://www.abhishekbadar.com/): Interactive 3D portfolio with about, experience, projects, and skills.
-- [Full profile (Markdown)](https://www.abhishekbadar.com/llms-full.txt): Complete bio, work experience, and every project description in plain text.
-- [Résumé (PDF)](https://www.abhishekbadar.com/Resume_AbhishekBadar.pdf): Downloadable résumé.
+- [Portfolio home](https://arunmallikarjun.com/): Interactive 3D portfolio with about, experience, projects, and skills.
+- [Full profile (Markdown)](https://arunmallikarjun.com/llms-full.txt): Complete bio, work experience, and every project description in plain text.
+- [Résumé (PDF)](https://arunmallikarjun.com/Arun-Mallikarjuna-Resume.pdf): Downloadable résumé.
 
 ## Experience
-- Software Development Engineer I, Xeo Information Systems (Mar 2025–Present): Frontend replatform (Laravel Blade → Next.js), a Flutter app built end-to-end (500+ users), and the Laravel backend serving both.
-- Associate Software Engineer, Refyne (Aug 2024–Feb 2025): Built the internal CRM used by 150+ across sales, risk, and growth; automated workflows across Slack, Gmail, and ClickUp; shipped an LLM + Pinecone HR chatbot.
+- Senior Software Engineer, Tecnotree Convergence (Jan 2024–Present): Architecture owner of a rule-based telecom Promotion Engine; 99.5% availability across distributed microservices; end-to-end QA and ~30% faster frontend.
+- Software Engineer, Tecnotree Convergence (Oct 2021–Dec 2023): High-performance Node.js REST APIs for high-volume transaction processing; microservices throughput and reliability; configurable self-serve workflows.
 
 ## Selected projects
-- [twitter-autoposter](https://github.com/AbhishekBadar/twitter-autoposter): Self-running content pipeline (DeepSeek, Telegram approval bot, GitHub Actions).
-- [Claude-Tracker](https://github.com/AbhishekBadar/Claude-Tracker): Native macOS menu-bar app tracking Claude Code usage windows (Swift/SwiftUI).
-- [Save Image As](https://chromewebstore.google.com/detail/save-image-as/bcngajhkkkhfalgljjjjbjacjcdlophj): Chrome extension with smart file-naming — 2.46K+ installs, 1K+ active users.
-- [Traffic Density Analyzer](https://github.com/AbhishekBadar/Traffic-Density-Analyzer): YOLO-based vehicle detection and dynamic signal timing.
+- Folkgrove — Multi-Tenant HRMS: Database-per-tenant HRMS across a 4-app Turborepo; country-agnostic payroll engine; no-code customization; Cerbos RBAC; ~2,600 automated tests.
+- [Tailorwright — AI Agent Platform](https://github.com/MrArun005/resume-tailor): One agent core in four forms (web, Claude Code skill, subagent, CLI); self-correcting tool-calling; no-fabrication guardrails; SSRF-hardened.
+- Free Resume Pro: Gemini-API résumé tool with ATS scoring, job-description matching, and a privacy-first zero-storage design.
+- Promotion Manager System: Microservices promotion engine letting non-technical teams launch telecom campaigns with zero redeployment.
 
 ## Profiles
-- [GitHub](https://github.com/AbhishekBadar)
-- [LinkedIn](https://www.linkedin.com/in/abhishekbadar)
-- [Medium](https://medium.com/@abhishekbadar)
+- [GitHub](https://github.com/MrArun005)
+- [LinkedIn](https://www.linkedin.com/in/arunmallikarjun)
 
 ## Contact
-- Email: ab15.badar@gmail.com
-- Location: Pune, India
+- Email: arunmallikarjun005@gmail.com
+- Location: Bengaluru, India

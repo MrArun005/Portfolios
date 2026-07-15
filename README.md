@@ -1,6 +1,8 @@
 # Arun Mallikarjuna — Portfolio
 
-A single-page developer portfolio built with **Next.js 15 (App Router) + TypeScript + Tailwind CSS v4 + Framer Motion**. Dark terminal/filesystem identity, amber + teal dual accent, orchestrated motion.
+An interactive 3D space-journey portfolio built with Next.js 16, React 19,
+React Three Fiber, and Tailwind CSS v4. Scroll to fly a rocket past planets,
+a station, skill cards, and an orbiting ring of projects before the finale.
 
 ## Run it
 ```bash
@@ -8,33 +10,19 @@ npm install
 npm run dev      # http://localhost:3000
 ```
 
-Production:
-```bash
-npm run build && npm run start
-```
-
 ## Structure
-- `app/layout.tsx` — fonts (Space Grotesk / Inter / JetBrains Mono), metadata, body shell
-- `app/globals.css` — Tailwind import + `@theme` design tokens (colors, fonts, animations)
-- `app/page.tsx` — composes the sections
-- `lib/content.ts` — **all content** (copy, experience, projects, skills) as typed data
-- `components/` — one component per section + shared `Reveal`, `Counter`, `Section`, `Eyebrow`
-- `public/assets/` — résumé PDF
-- `legacy/` — the original static HTML/CSS/JS build, kept for reference
+- `src/lib/data.ts` — all content (profile, experience, skills, projects)
+- `src/lib/journey.ts` — the scroll-driven flight (camera + rocket paths)
+- `src/components/canvas/*` — the 3D scene
+- `src/components/dom/*` — HTML overlays (nav, HUD, project modal)
+- `src/app/globals.css` — `@theme` design tokens (amber + teal accents)
+- `legacy/terminal-2025/` — the previous terminal-themed build, kept for reference
 
-## Edit
-- **Content/copy:** everything lives in `lib/content.ts`.
-- **LinkedIn:** set `meta.linkedin` in `lib/content.ts` — it stays hidden until a URL is provided.
-- **Colors/type/animations:** the `@theme` block at the top of `app/globals.css`.
-
-## Motion
-Framer Motion drives the hero load sequence, scroll reveals, count-up stats, project-card 3D tilt, and the sliding nav indicator. All of it is gated behind `prefers-reduced-motion` (`useReducedMotion`), and content renders in place when motion is reduced.
-
-## Deploy (free)
-- **Vercel:** `npx vercel` (zero config — detects Next.js).
-
-Accessible: keyboard focus rings, reduced-motion respected, responsive down to mobile.
-
-## Credits
-
-- Asteroid 3D model: "Asteroid" by J-Toastie via [Poly Pizza](https://poly.pizza/m/YS1jpm3mNr) — licensed CC BY 3.0.
+## Assets & Credits
+The 3D experience and its scaffolding were adapted from an open portfolio by
+Abhishek Badar (github.com/AbhishekBadar/portfolio). Reused assets:
+- **Planet/star textures** — [Solar System Scope](https://www.solarsystemscope.com/textures/) (CC BY 4.0)
+- **HDRI lighting** — "Dikhololo Night", [Poly Haven](https://polyhaven.com) (CC0)
+- **3D models** (astronaut, spaceship) — [Quaternius](https://quaternius.com) (CC0)
+- **ISS model** — [NASA 3D Resources](https://github.com/nasa/NASA-3D-Resources) (public domain)
+- Rocket, nebula, rings, and HUD art are generated procedurally in code.

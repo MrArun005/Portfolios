@@ -365,7 +365,7 @@ export default function SectionOverlays() {
           </div>
 
           <p className="mt-5 font-mono text-[10px] tracking-[0.14em] text-white/25">
-            © 2026 ABHISHEK BADAR — BUILT WITH NEXT.JS + R3F
+            © 2026 ARUN MALLIKARJUNA — BUILT WITH NEXT.JS + R3F
           </p>
         </div>
       </div>

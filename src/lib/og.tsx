@@ -5,7 +5,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = `${PROFILE.name} — ${PROFILE.role}`;
 
-const STACK = "React · Next.js · TypeScript · Laravel · Flutter · AI";
+const STACK = "Node.js · NestJS · Next.js · TypeScript · AI Agents · Microservices";
 const DOMAIN = SITE_URL.replace(/^https?:\/\//, "");
 
 /**
@@ -26,7 +26,7 @@ export function renderOgImage() {
           padding: "72px 80px",
           backgroundColor: "#02010a",
           backgroundImage:
-            "radial-gradient(1100px 620px at 80% 12%, rgba(217,119,87,0.32), rgba(2,1,10,0) 58%), radial-gradient(820px 520px at 6% 96%, rgba(76,201,240,0.18), rgba(2,1,10,0) 55%)",
+            "radial-gradient(1100px 620px at 80% 12%, rgba(244,184,96,0.32), rgba(2,1,10,0) 58%), radial-gradient(820px 520px at 6% 96%, rgba(94,200,194,0.18), rgba(2,1,10,0) 55%)",
           color: "#eef2ff",
           fontFamily: "sans-serif",
         }}
@@ -42,7 +42,7 @@ export function renderOgImage() {
           }}
         >
           <div style={{ display: "flex" }}>PORTFOLIO</div>
-          <div style={{ display: "flex" }}>SDE · FULL-STACK · AI</div>
+          <div style={{ display: "flex" }}>FULL-STACK · AI PLATFORM</div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>

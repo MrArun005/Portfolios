@@ -1,93 +1,81 @@
-# Abhishek Badar — Software Development Engineer
+# Arun Mallikarjuna — Full-Stack & AI Platform Engineer
 
-> Software Development Engineer at Xeo Information Systems (Pune, India) building end-to-end web, mobile, and backend systems with React, Next.js, TypeScript, Laravel, and Flutter — plus AI in production (RAG with Pinecone, OCR workflows, and automation). IIT Ropar AI Minor graduate.
+> Arun Mallikarjuna is a Full-Stack & AI Platform Engineer in Bengaluru, India. He builds the engines and AI agents other people run — multi-tenant platforms, payroll engines, rule engines, and custom agent runtimes — with Node.js, NestJS, Next.js, TypeScript, and the Claude & Gemini APIs.
 
-- Name: Abhishek Badar
-- Role: Software Development Engineer
-- Location: Pune, India
-- Email: ab15.badar@gmail.com
-- Website: https://www.abhishekbadar.com
-- GitHub: https://github.com/AbhishekBadar
-- LinkedIn: https://www.linkedin.com/in/abhishekbadar
-- Medium: https://medium.com/@abhishekbadar
+- Name: Arun Mallikarjuna
+- Role: Full-Stack & AI Platform Engineer
+- Status: Available for new roles · Bengaluru, India
+- Location: Bengaluru, India
+- Email: arunmallikarjun005@gmail.com
+- Website: https://arunmallikarjun.com
+- GitHub: https://github.com/MrArun005
+- LinkedIn: https://www.linkedin.com/in/arunmallikarjun
+
+## Bio
+
+I build the engines other people configure without code — multi-tenant platforms, payroll engines, rule engines, and custom AI agents. 4+ years shipping production systems end-to-end, 2+ years wiring LLM APIs into core product features, owning architecture, reliability, and scaling.
 
 ## About
 
-I design and ship products end to end across web, mobile, backends, and the automation between them. At Xeo, I own the full stack: Laravel, Next.js, Flutter from zero. Plus AI in production: RAG with Pinecone, OCR workflows, and automation that cuts real operational drag.
+I like the hard, structural problems — distributed microservices backends, clean data modeling, and the design patterns that keep a system reliable as it grows.
 
-I work across the entire stack to reduce dependencies and move faster. I design APIs, build frontends, and develop mobile apps so products can be shipped without bottlenecks.
+Lately I build custom AI agents and the system prompts behind them, run evals, and ship internal AI tooling. I work straight from PRDs and real customer problems, own the architecture decisions, and care about thorough QA.
 
-At Xeo, I'm rebuilding a production Laravel system into a modern architecture while delivering a Flutter app from scratch — handling legacy code, performance constraints, and scalability challenges in real-world systems.
+Whether it's a telecom promotion engine or a multi-tenant HRMS, the throughline is the same: engines other people can configure without code.
 
-I focus on building simple, fast, and maintainable systems — designed for actual usage, not just clean implementations.
+Credentials: 4+ yrs production engineering · 2+ yrs LLM API integration · 99.5% availability at scale · ~2,600 automated tests (Folkgrove) · Based in Bengaluru, India.
 
 ## Experience
 
-### Software Development Engineer I — Xeo Information Systems
-Mar 2025 — Present · Pune · Hybrid
+### Senior Software Engineer — Tecnotree Convergence
+Jan 2024 — Present · Bengaluru, India
 
-Leading a frontend replatform, building a Flutter app end-to-end, and designing the Laravel backend that serves both.
+Architecture owner for a rule-based Promotion Engine — the team's go-to for technical decisions, production reliability, and scaling.
 
-- Migrating web frontend from Laravel Blade to Next.js (App Router) — scalable routing, reusable component patterns.
-- Built a reusable React data table abstraction replacing legacy Yajra DataTables — standardized pagination, sorting, server-side data.
-- Shipped complex form workflows using React Hook Form + Zod for type-safe validation.
-- Designed Laravel backend architecture serving web + mobile via RESTful APIs.
-- Built a Flutter app end-to-end for students & parents — fees, events, newsletters, bookings, push notifications. 500+ users.
-- HMAC-based request auth for mobile API security.
-- Payment gateway integration + admin dashboard for tracking, dues reports, receipts.
-- FCM push notifications with deep-link routing.
+- Owned architecture and design — patterns, reliability, scaling — of a rule-based Promotion Engine that lets business teams launch telecom campaigns with zero redeployment.
+- Led production incident response across distributed microservices, sustaining 99.5% availability under high transaction volume.
+- Ran end-to-end QA (SIT, smoke, UAT) and reviewed teammates' code against PRDs before release.
+- Built REST APIs, reporting dashboards, and third-party integrations aligned to clear business outcomes.
+- Improved frontend performance ~30% through optimized React rendering and state management.
 
-### Associate Software Engineer — Refyne
-Aug 2024 — Feb 2025 · Bangalore · Full-time
+### Software Engineer — Tecnotree Convergence
+Oct 2021 — Dec 2023 · Bengaluru, India
 
-Built the internal CRM platform used by 150+ across sales, risk, and growth. Automated the boring parts.
+Backend feature delivery on a high-volume microservices platform — APIs, performance, and self-serve workflows.
 
-- Built an internal CRM on Firebase Auth + serverless architecture — 150+ active users across sales, risk, and growth.
-- Firestore data models for real-time deal tracking, activity logs, and threaded communication.
-- Two-way comment system synced with ClickUp and Postgres — bidirectional sync between CRM and task management.
-- Dashboards + search filters that cut data retrieval time by 60%; custom export-to-CSV for on-demand reports.
-- Migrated 50,000+ records from HubSpot to Firebase with validation and consistency checks (+30% query efficiency).
-- Automated cross-platform workflows (Slack, Gmail, ClickUp) via N8N — reduced ops overhead ~40%.
-- Automated user onboarding via Slack APIs + Firebase Admin SDK — cut onboarding from 30 min to under 5 min.
-- HR chatbot using Pinecone vector DB + LLMs, integrated with Slack (+40% internal support efficiency).
-- Resume ingestion + scoring pipeline: Google Drive, OCR, semantic matching against job descriptions.
-- Integrated Sentry for real-time error monitoring — debugging time down 50%.
+- Built scalable, high-performance Node.js REST APIs for high-volume transaction processing, using async concurrency to keep latency low under load.
+- Contributed to the microservices architecture, improving end-to-end throughput and reliability.
+- Translated a real customer problem into a shipped feature — configurable self-serve workflows for non-technical teams — cutting turnaround time.
+- Optimized rule-evaluation logic to reduce per-request latency.
 
 ## Projects
 
-### DoSpaces Plugin (2025 · Open source)
-osTicket attachments, offloaded to the cloud. osTicket plugin that offloads ticket attachments to DigitalOcean Spaces with secure public-link generation — cut agent response time by 30%. Built with: PHP, DigitalOcean Spaces, REST.
+### Folkgrove — Multi-Tenant HRMS (2025 · Flagship)
+A payroll & HR engine teams configure without code. A multi-tenant HRMS with database-per-tenant isolation across a 4-app Turborepo — HR, payroll, leave, performance, analytics. Country-agnostic payroll engine with pluggable statutory rule packs (India, US, UAE, Singapore), a no-code customization platform (custom fields → objects → form builder → workflow triggers), policy-based RBAC with Cerbos, and async payroll runs via Redis/BullMQ. ~2,600 automated tests guard the core. Built with: TypeScript, Next.js 15, NestJS, Prisma, MySQL, Redis/BullMQ, Cerbos, Turborepo.
 
-### twitter-autoposter (2026 · AI · Automation)
-A content pipeline that runs itself. End-to-end content pipeline: researches trending topics, generates posts with DeepSeek, queues them into Google Sheets, and routes through a Telegram approval bot. Runs daily on GitHub Actions. Built with: Python, DeepSeek, Telegram Bot, Google Sheets, GitHub Actions. https://github.com/AbhishekBadar/twitter-autoposter
+### Tailorwright — AI Agent Platform (Open source · AI agents)
+One agent core, four forms. Custom AI agents and the system prompts behind them, shipped from one shared core in four forms — web app, Claude Code skill, subagent, and CLI. Multi-step tool-calling with a self-correcting planner/executor loop, a strict no-fabrication guardrail via structured-output schemas + retries (validated with evals), runs fully local and SSRF-hardened. Built with: Claude API, Next.js, TypeScript, Node.js. https://github.com/MrArun005/resume-tailor
 
-### Claude-Tracker (2026 · macOS · Swift)
-Never blow a quota mid-flow. Native menu-bar app that tracks Claude Code usage across weekly and 5-hour rolling windows. Built with: Swift, SwiftUI, macOS. https://github.com/AbhishekBadar/Claude-Tracker
+### Free Resume Pro (AI SaaS)
+ATS scoring, zero storage. A résumé tool built around the Gemini API, owned end-to-end solo and scaled on Vercel. ATS scoring + job-description matching to surface gaps against a target role, AI rewriting through structured prompt engineering, and JWT auth with a privacy-first, zero-storage design — nothing is persisted. Built with: Next.js, React, Node.js, Gemini API, Vercel.
 
-### Save Image As (2026 · Chrome extension · Live)
-2.46K+ installs, 1K+ active users. Chrome extension with intelligent file-naming suggestions and streamlined download management. 2.46K+ installs, 1K+ active users, 4.36K+ store page views. Built with: JavaScript, Chrome APIs, Manifest v3. https://chromewebstore.google.com/detail/save-image-as/bcngajhkkkhfalgljjjjbjacjcdlophj
+### Promotion Manager System (Platform)
+Telecom campaigns, zero redeploy. A scalable promotion-management system on a microservices backend with a real-time rule engine, letting non-technical teams configure telecom campaigns with zero redeployment. Async, high-throughput rule evaluation tuned for low per-request latency under load. Built with: Node.js, React, Microservices, REST APIs.
 
-### PuzzleIT (2024 · Side project)
-Escape rooms in the browser. Web-based escape-room puzzle game with real-time collaboration. Engaged 200+ participants through challenges that tested lateral thinking. Built with: React, Redux, MongoDB, Node. https://github.com/AbhishekBadar/puzzleIT
-
-### Traffic Density Analyzer (2023 · Research)
-YOLO-powered signal timing. Real-time traffic management using YOLO for vehicle detection and dynamic signal timing. Reduced simulated congestion by 25%. Built with: Python, YOLO, OpenCV. https://github.com/AbhishekBadar/Traffic-Density-Analyzer
-
-### WhileGPTThinks (2025 · Chrome extension)
-A silly but useful toy. Redirects you to YouTube Shorts while ChatGPT generates a reply, then brings you back when the answer is ready. Built with: JavaScript, Chrome APIs. https://github.com/AbhishekBadar/whilegptthinks
+### Algorithm Visualizer (Learning in public)
+Big-O made tangible. Interactive, step-by-step visualizations of core algorithms and data structures — sorting, search, and graph algorithms animated to make complexity analysis intuitive rather than abstract. Built with: JavaScript, React.
 
 ## Skills
 
-- Frontend: React · Next.js · Tailwind CSS
-- Backend: Laravel · REST APIs · MySQL
-- Mobile: Flutter · Dart
-- AI & Automation: RAG · Pinecone · OCR · N8N
-- Tools & Infra: Firebase · Git · Deployments
-- Languages: TypeScript · PHP · Python
+- AI & Agents: LLM Integration · Custom Agents · System Prompts · Tool-Calling · Evals · RAG · Claude · Gemini
+- Languages & Frontend: TypeScript · JavaScript · Python · React · Next.js · React Native · Tailwind
+- Backend & APIs: Node.js · NestJS · Express · REST · Prisma · BullMQ · Django · Flask
+- Data & Infra: PostgreSQL · MySQL · MongoDB · DynamoDB · Redis · Docker · AWS · GCP · CI/CD
+- Architecture & CS: Microservices · Distributed Systems · System Design · Multi-Tenant · Design Patterns · DSA
+- Auth · Security · QA: JWT · Cerbos RBAC · Firebase · Clerk · VAPT · SIT/Smoke/UAT · Automated Testing
 
-## Education & Credentials
-
-- B.Tech, Information Technology — RCOEM (2020–2024)
-- AI Minor — IIT Ropar (2024–2025)
-- Certified: Azure · AI · Flutter
-- Currently at Xeo Information Systems, Pune
+## Contact
+- Email: arunmallikarjun005@gmail.com
+- Location: Bengaluru, India
+- GitHub: https://github.com/MrArun005
+- LinkedIn: https://www.linkedin.com/in/arunmallikarjun

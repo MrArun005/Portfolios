@@ -27,40 +27,42 @@ const jetbrains = JetBrains_Mono({
 });
 
 const TITLE =
-  "Abhishek Badar — Software Development Engineer | React, TypeScript, Flutter & AI";
+  "Arun Mallikarjuna — Full-Stack & AI Platform Engineer | Node.js, React, AI Agents";
 const DESCRIPTION =
-  "Abhishek Badar is a Software Development Engineer at Xeo Information Systems (Pune, India) building end-to-end web, mobile, and backend systems with React, Next.js, TypeScript, Laravel, and Flutter — plus AI in production (RAG, Pinecone, OCR). IIT Ropar AI Minor graduate.";
+  "Arun Mallikarjuna is a Full-Stack & AI Platform Engineer in Bengaluru, India. I build the engines and AI agents other people run — multi-tenant platforms, payroll engines, rule engines, and custom agent runtimes with Node.js, NestJS, Next.js, TypeScript, and the Claude & Gemini APIs.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: TITLE,
-    template: "%s · Abhishek Badar",
+    template: "%s · Arun Mallikarjuna",
   },
   description: DESCRIPTION,
-  applicationName: "Abhishek Badar Portfolio",
+  applicationName: "Arun Mallikarjuna Portfolio",
   authors: [{ name: PROFILE.name, url: SITE_URL }],
   creator: PROFILE.name,
   publisher: PROFILE.name,
   category: "technology",
   keywords: [
-    "Abhishek Badar",
-    "Abhishek Badar portfolio",
-    "Software Development Engineer",
-    "Full Stack Developer",
-    "React Developer",
-    "Next.js Developer",
+    "Arun Mallikarjuna",
+    "Arun Mallikarjuna portfolio",
+    "Full-Stack Engineer",
+    "AI Platform Engineer",
+    "AI Agents",
+    "LLM Integration",
+    "Node.js",
+    "NestJS",
+    "Next.js",
     "TypeScript",
-    "Laravel Developer",
-    "Flutter Developer",
-    "AI Engineer",
-    "RAG",
-    "Pinecone",
-    "Xeo Information Systems",
-    "IIT Ropar",
-    "RCOEM",
-    "Pune developer",
-    "software engineer India",
+    "React",
+    "Microservices",
+    "Multi-Tenant SaaS",
+    "Rule Engine",
+    "Payroll Engine",
+    "Claude API",
+    "Gemini API",
+    "Bengaluru developer",
+    "Tecnotree",
   ],
   alternates: {
     canonical: "/",
@@ -68,19 +70,18 @@ export const metadata: Metadata = {
   openGraph: {
     type: "profile",
     firstName: PROFILE.firstName,
-    lastName: "Badar",
-    username: "abhishekbadar",
+    lastName: "Mallikarjuna",
+    username: "arunmallikarjun",
     title: TITLE,
     description: DESCRIPTION,
     url: SITE_URL,
-    siteName: "Abhishek Badar Portfolio",
+    siteName: "Arun Mallikarjuna Portfolio",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    creator: "@abhishekbadar",
   },
   robots: {
     index: true,
@@ -114,7 +115,7 @@ export const viewport: Viewport = {
 
 /**
  * Rich, linked structured data (schema.org @graph). Answer engines and AI
- * crawlers use this to understand who Abhishek is, what he does, and what
+ * crawlers use this to understand who Arun is, what he does, and what
  * he has built — the backbone of AEO / AI-SEO. Built from the same content
  * data that drives the site so it never drifts out of sync.
  */
@@ -126,58 +127,48 @@ const jsonLd = {
       "@id": `${SITE_URL}/#person`,
       name: PROFILE.name,
       givenName: PROFILE.firstName,
-      familyName: "Badar",
+      familyName: "Mallikarjuna",
       jobTitle: PROFILE.role,
       description: PROFILE.bio,
       url: `${SITE_URL}/`,
       email: `mailto:${PROFILE.email}`,
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Pune",
-        addressRegion: "Maharashtra",
+        addressLocality: "Bengaluru",
+        addressRegion: "Karnataka",
         addressCountry: "IN",
       },
       worksFor: {
         "@type": "Organization",
-        name: "Xeo Information Systems",
+        name: "Tecnotree Convergence",
       },
-      alumniOf: [
-        {
-          "@type": "CollegeOrUniversity",
-          name: "Ramdeobaba College of Engineering and Management (RCOEM)",
-        },
-        {
-          "@type": "CollegeOrUniversity",
-          name: "Indian Institute of Technology Ropar (IIT Ropar)",
-        },
-      ],
       hasOccupation: {
         "@type": "Occupation",
         name: PROFILE.role,
         occupationLocation: {
           "@type": "City",
-          name: "Pune, India",
+          name: "Bengaluru, India",
         },
         skills: SKILLS.map((s) => s.items).join(" · "),
       },
       knowsAbout: [
-        "React",
+        "Full-Stack Development",
+        "AI Agents",
+        "LLM Integration",
+        "System Prompt Engineering",
+        "Node.js",
+        "NestJS",
         "Next.js",
         "TypeScript",
-        "JavaScript",
-        "Laravel",
-        "PHP",
-        "Flutter",
-        "Dart",
-        "Python",
-        "REST APIs",
-        "MySQL",
-        "Firebase",
-        "Retrieval-Augmented Generation (RAG)",
-        "Pinecone vector database",
-        "OCR",
-        "Workflow automation",
-        "Artificial Intelligence",
+        "React",
+        "Microservices",
+        "Distributed Systems",
+        "Multi-Tenant Architecture",
+        "Rule Engines",
+        "Payroll Engines",
+        "Prisma",
+        "Redis",
+        "Reliability & Scaling",
       ],
       sameAs: [
         PROFILE.socials.github,
@@ -188,7 +179,7 @@ const jsonLd = {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
       url: `${SITE_URL}/`,
-      name: "Abhishek Badar Portfolio",
+      name: "Arun Mallikarjuna Portfolio",
       description: DESCRIPTION,
       inLanguage: "en",
       publisher: { "@id": `${SITE_URL}/#person` },
@@ -205,7 +196,7 @@ const jsonLd = {
     {
       "@type": "ItemList",
       "@id": `${SITE_URL}/#projects`,
-      name: "Projects by Abhishek Badar",
+      name: "Projects by Arun Mallikarjuna",
       numberOfItems: PROJECTS.length,
       itemListElement: PROJECTS.map((p, i) => ({
         "@type": "ListItem",
