@@ -3,12 +3,12 @@
 @theme inline {
   --color-space: #050310;
   --color-space-deep: #02010a;
-  --color-nebula: #7c3aed;
-  --color-nebula-soft: #a78bfa;
-  --color-cyan: #4cc9f0;
-  --color-cyan-bright: #7df9ff;
-  --color-pink: #f0abfc;
-  --color-hud: #9adcff;
+  --color-nebula: #f4b860;       /* amber (primary accent) */
+  --color-nebula-soft: #f7c88f;
+  --color-cyan: #5ec8c2;         /* teal (secondary accent) */
+  --color-cyan-bright: #7df0ea;
+  --color-pink: #f0abfc;         /* kept as a minor third accent */
+  --color-hud: #bfeae6;          /* warm-teal HUD tint */
   --color-star: #eef2ff;
   --font-display: var(--font-space-grotesk);
   --font-body: var(--font-inter);
@@ -42,8 +42,8 @@ body {
 }
 
 ::selection {
-  background: rgba(124, 58, 237, 0.55);
-  color: #fff;
+  background: rgba(244, 184, 96, 0.45);
+  color: #02010a;
 }
 
 /* --- HUD utilities ------------------------------------------------ */
@@ -52,15 +52,15 @@ body {
 .glass {
   background: linear-gradient(
     135deg,
-    rgba(124, 58, 237, 0.10),
+    rgba(244, 184, 96, 0.10),
     rgba(10, 12, 32, 0.55) 45%,
-    rgba(76, 201, 240, 0.08)
+    rgba(94, 200, 194, 0.08)
   );
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(154, 220, 255, 0.18);
+  border: 1px solid rgba(94, 200, 194, 0.20);
   box-shadow:
-    0 0 24px rgba(76, 201, 240, 0.08),
+    0 0 24px rgba(94, 200, 194, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
@@ -74,7 +74,7 @@ body {
   position: absolute;
   width: 22px;
   height: 22px;
-  border: 1.5px solid rgba(154, 220, 255, 0.75);
+  border: 1.5px solid rgba(94, 200, 194, 0.8);
   pointer-events: none;
 }
 .hud-corners::before {
@@ -105,8 +105,8 @@ body {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(154, 220, 255, 0.6) 20%,
-    rgba(154, 220, 255, 0.6) 80%,
+    rgba(94, 200, 194, 0.6) 20%,
+    rgba(94, 200, 194, 0.6) 80%,
     transparent
   );
   height: 1px;
