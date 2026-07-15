@@ -114,11 +114,6 @@ export default function SeoContent() {
             </a>
           </li>
           <li>
-            <a href={PROFILE.socials.medium} rel="noopener">
-              Medium
-            </a>
-          </li>
-          <li>
             <a href={PROFILE.resume}>Résumé (PDF)</a>
           </li>
         </ul>

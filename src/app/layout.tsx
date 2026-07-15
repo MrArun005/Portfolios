@@ -182,7 +182,6 @@ const jsonLd = {
       sameAs: [
         PROFILE.socials.github,
         PROFILE.socials.linkedin,
-        PROFILE.socials.medium,
       ],
     },
     {
