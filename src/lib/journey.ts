@@ -12,10 +12,10 @@ export const TOTAL_PAGES = 10; // page height = TOTAL_PAGES * 100vh
 export const SECTIONS = [
   { id: "hero", label: "Home", range: [0.0, 0.1] },
   { id: "launch", label: "Launch", range: [0.1, 0.19] },
-  { id: "about", label: "About", range: [0.19, 0.34] },
-  { id: "experience", label: "Work", range: [0.34, 0.5] },
-  { id: "skills", label: "Skills", range: [0.5, 0.62] },
-  { id: "projects", label: "Projects", range: [0.62, 0.8] },
+  { id: "about", label: "The Lore", range: [0.19, 0.34] },
+  { id: "experience", label: "The Grind", range: [0.34, 0.5] },
+  { id: "skills", label: "The Craft", range: [0.5, 0.62] },
+  { id: "projects", label: "The Goods", range: [0.62, 0.8] },
   { id: "contact", label: "Contact", range: [0.8, 1.0] },
 ] as const;
 
