@@ -106,6 +106,35 @@ export default function ProjectModal() {
                 {project.description}
               </p>
 
+              {project.stats && project.stats.length > 0 && (
+                <div className="mt-6 flex flex-wrap gap-5">
+                  {project.stats.map((s) => (
+                    <div key={s.label}>
+                      <p className="font-display text-xl text-cyan">
+                        {s.value}
+                      </p>
+                      <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-white/50">
+                        {s.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {project.points && project.points.length > 0 && (
+                <ul className="mt-6 space-y-2">
+                  {project.points.map((point) => (
+                    <li
+                      key={point}
+                      className="flex gap-3 text-sm leading-relaxed text-white/75"
+                    >
+                      <span className="mt-0.5 shrink-0 text-cyan">▹</span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
               <div className="mt-6 flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
                   <span

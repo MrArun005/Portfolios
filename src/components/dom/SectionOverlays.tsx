@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ARCHIVE_URL, EXPERIENCE, PROFILE, PROJECTS } from "@/lib/data";
+import { ARCHIVE_URL, CAPABILITIES, EXPERIENCE, PROFILE, PROJECTS } from "@/lib/data";
 import { useScrollRaf } from "@/lib/scroll";
 import { useUIStore } from "@/lib/store";
 
@@ -66,11 +66,13 @@ const CONTACT_COPY =
 
 export default function SectionOverlays() {
   const aboutRef = useRef<HTMLDivElement>(null);
+  const capabilitiesRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const lastAbout = useRef(-1);
+  const lastCapabilities = useRef(-1);
   const lastExperience = useRef(-1);
   const lastSkills = useRef(-1);
   const lastProjects = useRef(-1);
@@ -82,6 +84,12 @@ export default function SectionOverlays() {
       lastAbout,
       envelope(p, 0.205, 0.235, 0.315, 0.34),
       (a) => `translateX(${(-40 * (1 - a)).toFixed(2)}px)`
+    );
+    applyPanel(
+      capabilitiesRef.current,
+      lastCapabilities,
+      envelope(p, 0.205, 0.24, 0.315, 0.34),
+      (a) => `translateX(${(40 * (1 - a)).toFixed(2)}px)`
     );
     applyPanel(
       experienceRef.current,
@@ -162,6 +170,46 @@ export default function SectionOverlays() {
         </div>
       </div>
 
+      {/* ============ 01b // CAPABILITIES ============ */}
+      <div className="absolute inset-y-0 right-0 flex items-center">
+        <div
+          ref={capabilitiesRef}
+          style={{
+            ...HIDDEN,
+            background:
+              "linear-gradient(150deg, rgba(14,20,42,0.94), rgba(6,8,20,0.94))",
+            boxShadow:
+              "0 0 40px rgba(5,8,20,0.7), 0 0 24px rgba(94, 200, 194, 0.1), inset 0 1px 0 rgba(255,255,255,0.08)",
+            backdropFilter: "blur(18px)",
+          }}
+          className="hud-corners pointer-events-auto mr-8 w-[440px] max-w-[calc(100vw-4rem)] rounded-2xl border border-hud/25 p-8 lg:mr-24"
+        >
+          <Kicker>01b // What I do</Kicker>
+          <h2 className="mt-3 font-display text-[28px] font-bold leading-[1.1] text-star">
+            What I bring
+          </h2>
+          <div
+            onWheel={(e) => e.stopPropagation()}
+            style={{
+              scrollbarWidth: "thin",
+              scrollbarColor: "rgba(94, 200, 194, 0.35) transparent",
+            }}
+            className="mt-5 max-h-[380px] space-y-4 overflow-y-auto pr-2"
+          >
+            {CAPABILITIES.map((cap) => (
+              <div key={cap.title}>
+                <p className="font-display text-base font-semibold text-star">
+                  {cap.title}
+                </p>
+                <p className="mt-1 text-sm leading-relaxed text-white/70">
+                  {cap.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* ============ 02 // EXPERIENCE ============ */}
       <div className="absolute inset-y-0 right-0 flex items-center">
         <div
@@ -205,6 +253,21 @@ export default function SectionOverlays() {
           <p className="mt-3 text-[15px] leading-relaxed text-white/85">
             {job.blurb}
           </p>
+
+          {job.metrics && (
+            <div className="mt-4 flex flex-wrap gap-5">
+              {job.metrics.map((m) => (
+                <div key={m.label}>
+                  <p className="font-display text-xl text-cyan lg:text-2xl">
+                    {m.value}
+                  </p>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-white/50">
+                    {m.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="hud-line mt-4" />
 

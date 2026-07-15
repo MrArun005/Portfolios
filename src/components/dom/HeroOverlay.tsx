@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, type Variants } from "motion/react";
-import { useRef } from "react";
+import { AnimatePresence, motion, type Variants } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import { PROFILE } from "@/lib/data";
 import { useScrollRaf } from "@/lib/scroll";
 
@@ -49,6 +49,14 @@ function TelemetrySquare() {
 
 export default function HeroOverlay() {
   const rootRef = useRef<HTMLDivElement>(null);
+  const [taglineIndex, setTaglineIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTaglineIndex((i) => (i + 1) % PROFILE.taglines.length);
+    }, 2800);
+    return () => clearInterval(id);
+  }, []);
 
   useScrollRaf((p) => {
     const el = rootRef.current;
@@ -99,6 +107,22 @@ export default function HeroOverlay() {
               {PROFILE.name}
             </span>
           </motion.h1>
+
+          {/* Rotating tagline */}
+          <motion.div variants={item} className="max-w-md lg:max-w-xl">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={taglineIndex}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="font-mono text-sm tracking-[0.06em] text-hud/90 lg:text-base"
+              >
+                {PROFILE.taglines[taglineIndex]}
+              </motion.p>
+            </AnimatePresence>
+          </motion.div>
 
           {/* Flourish */}
           <motion.div variants={item} className="flex items-center gap-3 opacity-80">
