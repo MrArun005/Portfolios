@@ -130,7 +130,7 @@ export default function SectionOverlays() {
             background:
               "linear-gradient(150deg, rgba(14,20,42,0.94), rgba(6,8,20,0.94))",
             boxShadow:
-              "0 0 40px rgba(5,8,20,0.7), 0 0 24px rgba(76,201,240,0.1), inset 0 1px 0 rgba(255,255,255,0.08)",
+              "0 0 40px rgba(5,8,20,0.7), 0 0 24px rgba(94, 200, 194, 0.1), inset 0 1px 0 rgba(255,255,255,0.08)",
             backdropFilter: "blur(18px)",
           }}
           className="hud-corners ml-8 w-[470px] max-w-[calc(100vw-4rem)] rounded-2xl border border-hud/25 p-8 lg:ml-16"
@@ -171,7 +171,7 @@ export default function SectionOverlays() {
             background:
               "linear-gradient(150deg, rgba(14,20,42,0.94), rgba(6,8,20,0.94))",
             boxShadow:
-              "0 0 40px rgba(5,8,20,0.7), 0 0 24px rgba(76,201,240,0.1), inset 0 1px 0 rgba(255,255,255,0.08)",
+              "0 0 40px rgba(5,8,20,0.7), 0 0 24px rgba(94, 200, 194, 0.1), inset 0 1px 0 rgba(255,255,255,0.08)",
             backdropFilter: "blur(18px)",
           }}
           className="hud-corners pointer-events-auto mr-8 w-[560px] max-w-[calc(100vw-4rem)] rounded-2xl border border-hud/25 p-8 lg:mr-24"
@@ -187,7 +187,7 @@ export default function SectionOverlays() {
                 onClick={() => setActiveJob(i)}
                 className={`rounded-full border px-5 py-2 font-mono text-xs uppercase tracking-[0.14em] transition-colors ${
                   i === activeJob
-                    ? "border-cyan bg-cyan/15 text-cyan-bright shadow-[0_0_14px_rgba(76,201,240,0.25)]"
+                    ? "border-cyan bg-cyan/15 text-cyan-bright shadow-[0_0_14px_rgba(94, 200, 194, 0.25)]"
                     : "border-white/20 text-star/70 hover:border-white/40 hover:text-star"
                 }`}
               >
@@ -213,7 +213,7 @@ export default function SectionOverlays() {
             onWheel={(e) => e.stopPropagation()}
             style={{
               scrollbarWidth: "thin",
-              scrollbarColor: "rgba(76,201,240,0.35) transparent",
+              scrollbarColor: "rgba(94, 200, 194, 0.35) transparent",
             }}
             className="mt-4 max-h-[300px] space-y-3 overflow-y-auto pr-2"
           >
@@ -238,7 +238,7 @@ export default function SectionOverlays() {
             className="mt-2 font-display text-[28px] font-bold text-star"
             style={{
               textShadow:
-                "0 0 24px rgba(76,201,240,0.45), 0 0 64px rgba(124,58,237,0.35)",
+                "0 0 24px rgba(94, 200, 194, 0.45), 0 0 64px rgba(244, 184, 96, 0.35)",
             }}
           >
             Skill modules online
@@ -255,7 +255,7 @@ export default function SectionOverlays() {
           <Kicker>03 // Some things I&apos;ve built</Kicker>
           <h2
             className="mt-2 font-display text-[34px] font-bold text-star"
-            style={{ textShadow: "0 0 28px rgba(124,58,237,0.4)" }}
+            style={{ textShadow: "0 0 28px rgba(244, 184, 96, 0.4)" }}
           >
             Projects in orbit
           </h2>
@@ -286,7 +286,7 @@ export default function SectionOverlays() {
               transition={{ duration: 0.22, ease: "easeOut" }}
               className="glass flex items-center gap-2.5 rounded-full px-4 py-2"
             >
-              <span className="block h-1.5 w-1.5 rotate-45 animate-blink bg-cyan shadow-[0_0_8px_rgba(76,201,240,0.9)]" />
+              <span className="block h-1.5 w-1.5 rotate-45 animate-blink bg-cyan shadow-[0_0_8px_rgba(94, 200, 194, 0.9)]" />
               <span className="font-mono text-[10px] tracking-[0.22em] text-hud">
                 TARGET LOCKED // {hovered.title.toUpperCase()}
               </span>
@@ -304,7 +304,7 @@ export default function SectionOverlays() {
             background:
               "linear-gradient(150deg, rgba(14,20,42,0.94), rgba(6,8,20,0.94))",
             boxShadow:
-              "0 0 40px rgba(5,8,20,0.7), 0 0 24px rgba(76,201,240,0.1), inset 0 1px 0 rgba(255,255,255,0.08)",
+              "0 0 40px rgba(5,8,20,0.7), 0 0 24px rgba(94, 200, 194, 0.1), inset 0 1px 0 rgba(255,255,255,0.08)",
             backdropFilter: "blur(18px)",
           }}
           className="hud-corners pointer-events-auto mr-8 w-[460px] max-w-[calc(100vw-4rem)] rounded-2xl border border-hud/25 p-8 lg:mr-24"

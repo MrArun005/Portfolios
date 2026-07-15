@@ -33,8 +33,8 @@ function RocketGlyph() {
         cx="16"
         cy="17.5"
         r="3.6"
-        fill="#4cc9f0"
-        stroke="#7df9ff"
+        fill="#5ec8c2"
+        stroke="#7df0ea"
         strokeWidth="1"
       />
       {/* Exhaust */}
@@ -44,7 +44,7 @@ function RocketGlyph() {
         cy="42.5"
         rx="3"
         ry="4"
-        fill="#7df9ff"
+        fill="#7df0ea"
         opacity="0.85"
       />
     </svg>
@@ -102,7 +102,7 @@ export default function Loader() {
                 className="absolute inset-0 animate-spin-slow rounded-full border border-dashed border-cyan/60"
                 style={{
                   boxShadow:
-                    "0 0 22px rgba(76,201,240,0.35), inset 0 0 18px rgba(76,201,240,0.12)",
+                    "0 0 22px rgba(94, 200, 194, 0.35), inset 0 0 18px rgba(94, 200, 194, 0.12)",
                 }}
               />
               <div
@@ -122,8 +122,8 @@ export default function Loader() {
                 className="h-full rounded-full"
                 style={{
                   background:
-                    "linear-gradient(90deg, #7c3aed, #4cc9f0 70%, #7df9ff)",
-                  boxShadow: "0 0 12px rgba(76,201,240,0.8)",
+                    "linear-gradient(90deg, #f4b860, #5ec8c2 70%, #7df0ea)",
+                  boxShadow: "0 0 12px rgba(94, 200, 194, 0.8)",
                 }}
                 initial={{ width: "0%" }}
                 animate={{ width: `${pct}%` }}

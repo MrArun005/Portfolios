@@ -14,6 +14,9 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Static assets (incl. vendored draco decoder)
     "public/**",
+    // Archived terminal site — not part of the 3D rebuild, has its own
+    // pre-existing lint errors we don't want to chase.
+    "legacy/**",
   ]),
   {
     // react-three-fiber's useFrame idiom mutates three.js objects

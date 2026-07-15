@@ -76,7 +76,7 @@ export default function Navbar() {
                   <motion.span
                     layoutId="nav-underline"
                     transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                    className="absolute inset-x-0 -bottom-px h-px bg-cyan shadow-[0_0_10px_rgba(76,201,240,0.9)]"
+                    className="absolute inset-x-0 -bottom-px h-px bg-cyan shadow-[0_0_10px_rgba(94, 200, 194, 0.9)]"
                   />
                 )}
               </button>
@@ -90,7 +90,7 @@ export default function Navbar() {
           target="_blank"
           rel="noopener noreferrer"
           data-cursor
-          className="pointer-events-auto rounded-full border border-cyan/60 px-6 py-2 font-mono text-xs uppercase tracking-hud text-cyan-bright transition-all duration-300 hover:bg-cyan/15 hover:shadow-[0_0_24px_rgba(76,201,240,0.4)]"
+          className="pointer-events-auto rounded-full border border-cyan/60 px-6 py-2 font-mono text-xs uppercase tracking-hud text-cyan-bright transition-all duration-300 hover:bg-cyan/15 hover:shadow-[0_0_24px_rgba(94, 200, 194, 0.4)]"
         >
           Résumé ↗
         </a>

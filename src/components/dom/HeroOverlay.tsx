@@ -35,7 +35,7 @@ function VLine({ h = 56 }: { h?: number }) {
       style={{
         height: h,
         background:
-          "linear-gradient(180deg, transparent, rgba(154,220,255,0.6) 20%, rgba(154,220,255,0.6) 80%, transparent)",
+          "linear-gradient(180deg, transparent, rgba(94, 200, 194, 0.6) 20%, rgba(94, 200, 194, 0.6) 80%, transparent)",
       }}
     />
   );
@@ -75,7 +75,7 @@ export default function HeroOverlay() {
             <span className="glass flex items-center gap-2.5 rounded-full px-5 py-2">
               <span
                 aria-hidden
-                className="h-1.5 w-1.5 animate-blink rounded-full bg-cyan shadow-[0_0_10px_rgba(76,201,240,0.9)]"
+                className="h-1.5 w-1.5 animate-blink rounded-full bg-cyan shadow-[0_0_10px_rgba(94, 200, 194, 0.9)]"
               />
               <span className="whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.28em] text-hud lg:text-[11px]">
                 {PROFILE.status}
@@ -91,11 +91,11 @@ export default function HeroOverlay() {
           >
             <span
               aria-hidden
-              className="absolute inset-0 select-none bg-gradient-to-b from-white to-[#7df9ff] bg-clip-text text-transparent opacity-50 blur-[16px]"
+              className="absolute inset-0 select-none bg-gradient-to-b from-white to-[#7df0ea] bg-clip-text text-transparent opacity-50 blur-[16px]"
             >
               {PROFILE.name}
             </span>
-            <span className="relative bg-gradient-to-b from-white from-40% via-[#e8f4ff] to-[#8fd8f8] bg-clip-text text-transparent drop-shadow-[0_2px_18px_rgba(76,201,240,0.35)]">
+            <span className="relative bg-gradient-to-b from-white from-40% via-[#e8f4ff] to-[#8fd8f8] bg-clip-text text-transparent drop-shadow-[0_2px_18px_rgba(94, 200, 194, 0.35)]">
               {PROFILE.name}
             </span>
           </motion.h1>
@@ -107,19 +107,19 @@ export default function HeroOverlay() {
               className="h-px w-20"
               style={{
                 background:
-                  "linear-gradient(90deg, transparent, rgba(154,220,255,0.7))",
+                  "linear-gradient(90deg, transparent, rgba(94, 200, 194, 0.7))",
               }}
             />
             <span
               aria-hidden
-              className="h-1.5 w-1.5 rotate-45 border border-cyan/80 bg-cyan/20 shadow-[0_0_8px_rgba(76,201,240,0.6)]"
+              className="h-1.5 w-1.5 rotate-45 border border-cyan/80 bg-cyan/20 shadow-[0_0_8px_rgba(94, 200, 194, 0.6)]"
             />
             <span
               aria-hidden
               className="h-px w-20"
               style={{
                 background:
-                  "linear-gradient(90deg, rgba(154,220,255,0.7), transparent)",
+                  "linear-gradient(90deg, rgba(94, 200, 194, 0.7), transparent)",
               }}
             />
           </motion.div>
@@ -153,8 +153,8 @@ export default function HeroOverlay() {
           <span className="whitespace-nowrap font-mono text-[10px] uppercase tracking-hud text-hud/80">
             Scroll To
           </span>
-          <span className="flex h-11 w-7 items-start justify-center rounded-full border border-hud/50 pt-2 shadow-[0_0_16px_rgba(76,201,240,0.15)]">
-            <span className="h-2 w-1 animate-scroll-dot rounded-full bg-cyan-bright shadow-[0_0_8px_rgba(125,249,255,0.9)]" />
+          <span className="flex h-11 w-7 items-start justify-center rounded-full border border-hud/50 pt-2 shadow-[0_0_16px_rgba(94, 200, 194, 0.15)]">
+            <span className="h-2 w-1 animate-scroll-dot rounded-full bg-cyan-bright shadow-[0_0_8px_rgba(125, 240, 234, 0.9)]" />
           </span>
           <span className="whitespace-nowrap font-mono text-[10px] uppercase tracking-hud text-hud/80">
             Explore

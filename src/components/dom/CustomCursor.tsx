@@ -94,7 +94,7 @@ export default function CustomCursor() {
         ring.style.transform = `translate3d(${ringPos.x - RING_SIZE / 2}px, ${
           ringPos.y - RING_SIZE / 2
         }px, 0) scale(${s})`;
-        ring.style.backgroundColor = `rgba(76, 201, 240, ${(
+        ring.style.backgroundColor = `rgba(94, 200, 194, ${(
           0.12 * hoverAmt
         ).toFixed(3)})`;
       }
@@ -132,7 +132,7 @@ export default function CustomCursor() {
           width: RING_SIZE,
           height: RING_SIZE,
           transform: "translate3d(-200px, -200px, 0)",
-          boxShadow: "0 0 12px rgba(76,201,240,0.25)",
+          boxShadow: "0 0 12px rgba(94, 200, 194, 0.25)",
         }}
       />
       <div
@@ -142,9 +142,9 @@ export default function CustomCursor() {
         style={{
           width: DOT_SIZE,
           height: DOT_SIZE,
-          background: "#7df9ff",
+          background: "#7df0ea",
           transform: "translate3d(-200px, -200px, 0)",
-          boxShadow: "0 0 8px rgba(125,249,255,0.9)",
+          boxShadow: "0 0 8px rgba(125, 240, 234, 0.9)",
         }}
       />
     </>

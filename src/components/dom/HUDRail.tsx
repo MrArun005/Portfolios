@@ -59,7 +59,7 @@ export default function HUDRail() {
         {/* progress fill */}
         <div
           ref={fillRef}
-          className="absolute left-0 top-0 h-full w-full origin-top bg-gradient-to-b from-cyan-bright via-cyan to-nebula shadow-[0_0_8px_rgba(76,201,240,0.7)]"
+          className="absolute left-0 top-0 h-full w-full origin-top bg-gradient-to-b from-cyan-bright via-cyan to-nebula shadow-[0_0_8px_rgba(94, 200, 194, 0.7)]"
           style={{ transform: "scaleY(0)" }}
         />
 
@@ -79,8 +79,8 @@ export default function HUDRail() {
               <span
                 className={`block h-2 w-2 rotate-45 border transition-all duration-300 ${
                   active
-                    ? "border-cyan bg-cyan shadow-[0_0_10px_rgba(76,201,240,0.9)]"
-                    : "border-white/40 bg-space/70 group-hover:border-cyan-bright group-hover:shadow-[0_0_8px_rgba(125,249,255,0.5)]"
+                    ? "border-cyan bg-cyan shadow-[0_0_10px_rgba(94, 200, 194, 0.9)]"
+                    : "border-white/40 bg-space/70 group-hover:border-cyan-bright group-hover:shadow-[0_0_8px_rgba(125, 240, 234, 0.5)]"
                 }`}
               />
               <span className="pointer-events-none absolute right-full top-1/2 mr-3 -translate-y-1/2 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.25em] text-hud opacity-0 transition-opacity duration-200 group-hover:opacity-100">
