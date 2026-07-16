@@ -88,7 +88,7 @@ export default function SectionOverlays() {
     applyPanel(
       capabilitiesRef.current,
       lastCapabilities,
-      envelope(p, 0.205, 0.24, 0.315, 0.34),
+      envelope(p, 0.515, 0.545, 0.6, 0.62),
       (a) => `translateX(${(40 * (1 - a)).toFixed(2)}px)`
     );
     applyPanel(
@@ -133,15 +133,8 @@ export default function SectionOverlays() {
       <div className="absolute inset-y-0 left-0 flex items-center">
         <div
           ref={aboutRef}
-          style={{
-            ...HIDDEN,
-            background:
-              "linear-gradient(150deg, rgba(14,20,42,0.94), rgba(6,8,20,0.94))",
-            boxShadow:
-              "0 0 40px rgba(5,8,20,0.7), 0 0 24px rgba(94, 200, 194, 0.1), inset 0 1px 0 rgba(255,255,255,0.08)",
-            backdropFilter: "blur(18px)",
-          }}
-          className="hud-corners ml-8 w-[470px] max-w-[calc(100vw-4rem)] rounded-2xl border border-hud/25 p-8 lg:ml-16"
+          style={HIDDEN}
+          className="hud-corners panel pointer-events-auto ml-8 w-[400px] max-w-[calc(100vw-4rem)] rounded-2xl border border-hud/25 p-6 lg:ml-16"
         >
           <Kicker>01 // About</Kicker>
           <h2 className="mt-3 font-display text-[40px] font-bold leading-[1.05] text-star">
@@ -174,15 +167,8 @@ export default function SectionOverlays() {
       <div className="absolute inset-y-0 right-0 flex items-center">
         <div
           ref={capabilitiesRef}
-          style={{
-            ...HIDDEN,
-            background:
-              "linear-gradient(150deg, rgba(14,20,42,0.94), rgba(6,8,20,0.94))",
-            boxShadow:
-              "0 0 40px rgba(5,8,20,0.7), 0 0 24px rgba(94, 200, 194, 0.1), inset 0 1px 0 rgba(255,255,255,0.08)",
-            backdropFilter: "blur(18px)",
-          }}
-          className="hud-corners pointer-events-auto mr-8 w-[440px] max-w-[calc(100vw-4rem)] rounded-2xl border border-hud/25 p-8 lg:mr-24"
+          style={HIDDEN}
+          className="hud-corners panel pointer-events-auto mr-8 w-[380px] max-w-[calc(100vw-4rem)] rounded-2xl border border-hud/25 p-6 lg:mr-24"
         >
           <Kicker>01b // What I do</Kicker>
           <h2 className="mt-3 font-display text-[28px] font-bold leading-[1.1] text-star">
@@ -214,15 +200,8 @@ export default function SectionOverlays() {
       <div className="absolute inset-y-0 right-0 flex items-center">
         <div
           ref={experienceRef}
-          style={{
-            ...HIDDEN,
-            background:
-              "linear-gradient(150deg, rgba(14,20,42,0.94), rgba(6,8,20,0.94))",
-            boxShadow:
-              "0 0 40px rgba(5,8,20,0.7), 0 0 24px rgba(94, 200, 194, 0.1), inset 0 1px 0 rgba(255,255,255,0.08)",
-            backdropFilter: "blur(18px)",
-          }}
-          className="hud-corners pointer-events-auto mr-8 w-[560px] max-w-[calc(100vw-4rem)] rounded-2xl border border-hud/25 p-8 lg:mr-24"
+          style={HIDDEN}
+          className="hud-corners panel pointer-events-auto mr-8 w-[470px] max-w-[calc(100vw-4rem)] rounded-2xl border border-hud/25 p-6 lg:mr-24"
         >
           <Kicker>02 // Where I&apos;ve worked</Kicker>
 
@@ -362,15 +341,8 @@ export default function SectionOverlays() {
       <div className="absolute inset-y-0 right-0 flex items-center">
         <div
           ref={contactRef}
-          style={{
-            ...HIDDEN,
-            background:
-              "linear-gradient(150deg, rgba(14,20,42,0.94), rgba(6,8,20,0.94))",
-            boxShadow:
-              "0 0 40px rgba(5,8,20,0.7), 0 0 24px rgba(94, 200, 194, 0.1), inset 0 1px 0 rgba(255,255,255,0.08)",
-            backdropFilter: "blur(18px)",
-          }}
-          className="hud-corners pointer-events-auto mr-8 w-[460px] max-w-[calc(100vw-4rem)] rounded-2xl border border-hud/25 p-8 lg:mr-24"
+          style={HIDDEN}
+          className="hud-corners panel pointer-events-auto mr-8 w-[400px] max-w-[calc(100vw-4rem)] rounded-2xl border border-hud/25 p-6 lg:mr-24"
         >
           <Kicker>04 // What&apos;s next</Kicker>
           <h2 className="mt-2 font-display text-[34px] font-bold leading-[1.08] text-star">
