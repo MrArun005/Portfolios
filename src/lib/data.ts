@@ -1,5 +1,5 @@
-/** Canonical origin. TODO: confirm real deploy domain (placeholder below). */
-export const SITE_URL = "https://arunmallikarjun.com";
+/** Canonical origin — the deployed Vercel production URL. */
+export const SITE_URL = "https://arun-portfolio-kappa.vercel.app";
 
 export const PROFILE = {
   name: "Arun Mallikarjuna",
